@@ -7,6 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        html {
+            scroll-behavior: smooth; /* Para que el salto sea suave */
+        }
         body {
             background-color: #020617;
             color: #f8fafc;
@@ -27,6 +30,48 @@
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
             transform: translateY(-2px);
         }
+
+        /* --- Estilos para el Carrusel Infinito --- */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-200px * 7)); } /* Ajustar 7 por el nº de logos únicos */
+        }
+
+        .slider {
+            background: transparent;
+            height: 100px;
+            margin: auto;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .slider .slide-track {
+            animation: scroll 40s linear infinite; /* 40s controla la velocidad */
+            display: flex;
+            width: calc(200px * 14); /* 14 es el total de imágenes (únicas + duplicadas) */
+        }
+
+        .slider .slide {
+            height: 100px;
+            width: 200px; /* Ancho de cada contenedor de logo */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .slider img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            opacity: 0.6; /* Un tono grisáceo elegante */
+            transition: opacity 0.3s ease;
+        }
+
+        .slider img:hover {
+            opacity: 1; /* Color completo al pasar el mouse */
+        }
     </style>
 </head>
 <body class="font-sans">
@@ -37,7 +82,7 @@
         </div>
         <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
             <a href="#inicio" class="hover:text-blue-400 transition">Inicio</a>
-            <a href="#ventajas" class="hover:text-blue-400 transition">Ventajas</a>
+            <a href="#catalogo" class="hover:text-blue-400 transition">Marcas</a> <a href="#ventajas" class="hover:text-blue-400 transition">Ventajas</a>
             <a href="#soluciones" class="hover:text-blue-400 transition">Soluciones</a>
             <a href="#planes" class="hover:text-blue-400 transition">Planes</a>
         </div>
@@ -53,7 +98,7 @@
                 Zentek transforma la operatividad de tu empresa con equipo de cómputo de alto rendimiento y soluciones tecnológicas a medida.
             </p>
             <div class="flex space-x-4">
-                <button class="btn-primary px-8 py-3 rounded-lg font-bold">Ver Catálogo</button>
+                <a href="#catalogo" class="btn-primary px-8 py-3 rounded-lg font-bold text-center">Ver Catálogo</a>
                 <button class="border border-slate-700 hover:bg-slate-800 px-8 py-3 rounded-lg font-bold transition">Saber más</button>
             </div>
         </div>
@@ -62,6 +107,32 @@
         </div>
     </section>
 
+    <section id="catalogo" class="py-16 bg-slate-950 border-y border-slate-900 overflow-hidden">
+        <div class="text-center mb-10">
+            <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest">Nuestras Alianzas Estatégicas</h3>
+            <p class="text-slate-400 mt-2">Equipos certificados por las marcas líderes del mercado.</p>
+        </div>
+
+        <div class="slider">
+            <div class="slide-track">
+                <div class="slide"><img src="ruta/al/logo_dell.png" alt="Dell"></div>
+                <div class="slide"><img src="ruta/al/logo_hp.png" alt="HP"></div>
+                <div class="slide"><img src="ruta/al/logo_lenovo.png" alt="Lenovo"></div>
+                <div class="slide"><img src="ruta/al/logo_apple.png" alt="Apple"></div>
+                <div class="slide"><img src="ruta/al/logo_asus.png" alt="Asus"></div>
+                <div class="slide"><img src="ruta/al/logo_microsoft.png" alt="Microsoft"></div>
+                <div class="slide"><img src="ruta/al/logo_samsung.png" alt="Samsung"></div>
+
+                <div class="slide"><img src="ruta/al/logo_dell.png" alt="Dell"></div>
+                <div class="slide"><img src="ruta/al/logo_hp.png" alt="HP"></div>
+                <div class="slide"><img src="ruta/al/logo_lenovo.png" alt="Lenovo"></div>
+                <div class="slide"><img src="ruta/al/logo_apple.png" alt="Apple"></div>
+                <div class="slide"><img src="ruta/al/logo_asus.png" alt="Asus"></div>
+                <div class="slide"><img src="ruta/al/logo_microsoft.png" alt="Microsoft"></div>
+                <div class="slide"><img src="ruta/al/logo_samsung.png" alt="Samsung"></div>
+            </div>
+        </div>
+    </section>
     <section id="ventajas" class="py-24 px-6 md:px-20 text-center">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">¿Por qué <span class="text-blue-500">Zentek</span>?</h2>
         <p class="text-slate-400 mb-16 max-w-2xl mx-auto">Equipamiento de vanguardia diseñado para optimizar la productividad empresarial.</p>
