@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zentek | Soluciones de Cómputo Empresarial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            background-color: #020617;
+            color: #f8fafc;
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at top right, #1e3a8a 0%, #020617 50%);
+        }
+        .card-blur {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #3b82f6, #2563eb);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <nav class="fixed w-full z-50 px-6 py-4 flex justify-between items-center bg-slate-950/80 backdrop-blur-md">
+        <div>
+            <img src="logozentek.png" alt="Zentek Logo" class="h-10">
+        </div>
+        <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
+            <a href="#inicio" class="hover:text-blue-400 transition">Inicio</a>
+            <a href="#ventajas" class="hover:text-blue-400 transition">Ventajas</a>
+            <a href="#soluciones" class="hover:text-blue-400 transition">Soluciones</a>
+            <a href="#planes" class="hover:text-blue-400 transition">Planes</a>
+        </div>
+        <a href="#contacto" class="btn-primary px-6 py-2 rounded-full text-sm font-bold">Contáctanos</a>
+    </nav>
+
+    <section id="inicio" class="hero-gradient min-h-screen flex flex-col justify-center px-6 md:px-20 relative overflow-hidden">
+        <div class="max-w-3xl z-10">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
+                Potenciando el Futuro de tu <span class="text-blue-500">Infraestructura</span>
+            </h1>
+            <p class="text-slate-400 text-lg md:text-xl mb-10 max-w-xl">
+                Zentek transforma la operatividad de tu empresa con equipo de cómputo de alto rendimiento y soluciones tecnológicas a medida.
+            </p>
+            <div class="flex space-x-4">
+                <button class="btn-primary px-8 py-3 rounded-lg font-bold">Ver Catálogo</button>
+                <button class="border border-slate-700 hover:bg-slate-800 px-8 py-3 rounded-lg font-bold transition">Saber más</button>
+            </div>
+        </div>
+        <div class="absolute right-[-10%] top-1/4 opacity-20 hidden lg:block">
+            <i data-lucide="cpu" class="w-96 h-96 text-blue-500"></i>
+        </div>
+    </section>
+
+    <section id="ventajas" class="py-24 px-6 md:px-20 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">¿Por qué <span class="text-blue-500">Zentek</span>?</h2>
+        <p class="text-slate-400 mb-16 max-w-2xl mx-auto">Equipamiento de vanguardia diseñado para optimizar la productividad empresarial.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="card-blur p-8 rounded-2xl text-left">
+                <i data-lucide="shield-check" class="text-blue-500 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Garantía Total</h3>
+                <p class="text-slate-400 text-sm">Respaldo directo en sitio para que tu operación nunca se detenga.</p>
+            </div>
+            <div class="card-blur p-8 rounded-2xl text-left">
+                <i data-lucide="zap" class="text-blue-500 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Alto Rendimiento</h3>
+                <p class="text-slate-400 text-sm">Equipos configurados con los últimos procesadores del mercado.</p>
+            </div>
+            <div class="card-blur p-8 rounded-2xl text-left">
+                <i data-lucide="server" class="text-blue-500 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Escalabilidad</h3>
+                <p class="text-slate-400 text-sm">Soluciones que crecen al ritmo de tu departamento de TI.</p>
+            </div>
+            <div class="card-blur p-8 rounded-2xl text-left">
+                <i data-lucide="headphones" class="text-blue-500 mb-4"></i>
+                <h3 class="text-xl font-bold mb-2">Soporte 24/7</h3>
+                <p class="text-slate-400 text-sm">Asesoría técnica especializada siempre disponible para tu empresa.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="planes" class="py-24 px-6 md:px-20 bg-slate-950/50">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4">Planes Corporativos</h2>
+            <p class="text-slate-400">Escoge el nivel de equipamiento que mejor se adapte a tu equipo.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="card-blur p-10 rounded-3xl relative">
+                <h4 class="text-blue-400 font-bold mb-2">Plan Pyme</h4>
+                <div class="text-4xl font-bold mb-6">$999<span class="text-sm font-normal text-slate-500">/lote</span></div>
+                <p class="text-slate-400 mb-8">Ideal para startups y oficinas pequeñas.</p>
+                <ul class="space-y-4 mb-10 text-sm">
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Laptops Ultrabook</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Soporte remoto</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Periféricos básicos</li>
+                </ul>
+                <button class="w-full py-3 rounded-lg border border-slate-700 hover:bg-slate-800 transition">Cotizar</button>
+            </div>
+
+            <div class="card-blur p-10 rounded-3xl border-blue-500/50 relative transform md:-translate-y-4">
+                <div class="absolute top-0 right-10 bg-blue-500 text-xs font-bold px-3 py-1 rounded-b-lg uppercase">Más Popular</div>
+                <h4 class="text-blue-400 font-bold mb-2">Empresarial</h4>
+                <div class="text-4xl font-bold mb-6">$2,499<span class="text-sm font-normal text-slate-500">/lote</span></div>
+                <p class="text-slate-400 mb-8">Para empresas en expansión con necesidades robustas.</p>
+                <ul class="space-y-4 mb-10 text-sm">
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Todo en Plan Pyme</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Estaciones de trabajo Pro</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Soporte en sitio</li>
+                </ul>
+                <button class="w-full py-3 rounded-lg btn-primary font-bold">Cotizar Ahora</button>
+            </div>
+
+            <div class="card-blur p-10 rounded-3xl relative">
+                <h4 class="text-blue-400 font-bold mb-2">Corporativo</h4>
+                <div class="text-4xl font-bold mb-6">$4,999<span class="text-sm font-normal text-slate-500">/lote</span></div>
+                <p class="text-slate-400 mb-8">Infraestructura completa para grandes corporativos.</p>
+                <ul class="space-y-4 mb-10 text-sm">
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Todo en Empresarial</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Servidores Dedicados</li>
+                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Consultoría TI</li>
+                </ul>
+                <button class="w-full py-3 rounded-lg border border-slate-700 hover:bg-slate-800 transition">Contratar</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 border-t border-slate-900 text-center text-slate-500 text-sm">
+        <p>&copy; 2026 Zentek. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Inicializar iconos
+        lucide.createIcons();
+    </script>
+</body>
+</html>
