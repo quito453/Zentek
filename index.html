@@ -8,147 +8,244 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         html { scroll-behavior: smooth; }
-        body { background-color: #020617; color: #f8fafc; }
+        body { background-color: #020617; color: #f8fafc; overflow-x: hidden; }
         .hero-gradient { background: radial-gradient(circle at top right, #1e3a8a 0%, #020617 50%); }
-        .card-blur { background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .card-blur { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); transition: transform 0.3s ease; }
+        .card-blur:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.4); }
         .btn-primary { background: linear-gradient(90deg, #3b82f6, #2563eb); transition: all 0.3s ease; }
         .btn-primary:hover { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); transform: translateY(-2px); }
 
-        /* Estilos Carrusel */
+        /* Carrusel Infinito */
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-200px * 7)); } }
-        .slider { height: 100px; overflow: hidden; position: relative; width: 100%; }
-        .slide-track { animation: scroll 40s linear infinite; display: flex; width: calc(200px * 14); }
-        .slide { width: 200px; display: flex; align-items: center; justify-content: center; padding: 15px; }
-        .slider img { max-height: 80%; opacity: 0.6; transition: 0.3s; filter: grayscale(1); }
-        .slider img:hover { opacity: 1; filter: grayscale(0); }
-
-        /* Modal Styles */
-        #modal-overlay { display: none; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(4px); }
+        .slider { height: 80px; overflow: hidden; position: relative; width: 100%; margin: 40px 0; }
+        .slide-track { animation: scroll 30s linear infinite; display: flex; width: calc(200px * 14); align-items: center; }
+        .slide { width: 200px; display: flex; justify-content: center; filter: grayscale(1) invert(1); opacity: 0.5; }
+        
+        #modal-overlay { display: none; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(8px); }
     </style>
 </head>
 <body class="font-sans">
 
     <div id="modal-overlay" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
-        <div class="card-blur w-full max-w-md p-8 rounded-3xl shadow-2xl relative">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-                <i data-lucide="x"></i>
-            </button>
-            
-            <h3 class="text-2xl font-bold mb-2">Solicitar Información</h3>
-            <p class="text-slate-400 text-sm mb-6">Déjanos tus datos y un asesor de Zentek se contactará contigo.</p>
-
-            <form action="https://formspree.io/f/mqakpzoz" method="POST" class="space-y-4">
-                <input type="hidden" name="_next" value="https://tu-sitio.com/gracias">
+        <div class="card-blur w-full max-w-lg p-8 rounded-3xl relative">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white"><i data-lucide="x"></i></button>
+            <h3 class="text-2xl font-bold mb-2">Solicitar Cotización</h3>
+            <p class="text-slate-400 text-sm mb-6">Completa los datos para recibir una propuesta personalizada.</p>
+            <form action="https://formspree.io/f/mqakpzoz" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input type="hidden" name="_to" value="quito453@gmail.com">
-
-                <div>
-                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Nombre Completo</label>
-                    <input type="text" name="nombre" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 transition">
+                <div class="md:col-span-2">
+                    <label class="text-xs font-bold text-slate-500 uppercase">Nombre</label>
+                    <input type="text" name="nombre" required class="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-2 mt-1 focus:border-blue-500 outline-none">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Email Corporativo</label>
-                    <input type="email" name="email" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 transition">
+                    <label class="text-xs font-bold text-slate-500 uppercase">Email</label>
+                    <input type="email" name="email" required class="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-2 mt-1 focus:border-blue-500 outline-none">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Empresa</label>
-                    <input type="text" name="empresa" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 transition">
+                    <label class="text-xs font-bold text-slate-500 uppercase">Empresa</label>
+                    <input type="text" name="empresa" required class="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-2 mt-1 focus:border-blue-500 outline-none">
                 </div>
-                <div>
-                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Servicio de Interés</label>
-                    <select name="servicio" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 transition appearance-none">
-                        <option value="pyme">Plan Pyme</option>
-                        <option value="empresarial">Plan Empresarial</option>
-                        <option value="corporativo">Plan Corporativo</option>
-                        <option value="otro">Otro / Consultoría</option>
+                <div class="md:col-span-2">
+                    <label class="text-xs font-bold text-slate-500 uppercase">Servicio de Interés</label>
+                    <select id="plan-select" name="servicio" class="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-2 mt-1 focus:border-blue-500 outline-none">
+                        <option value="pyme">Plan Pyme (Equipos Estándar)</option>
+                        <option value="empresarial">Plan Empresarial (Alto Rendimiento)</option>
+                        <option value="corporativo">Plan Corporativo (Infraestructura Total)</option>
                     </select>
                 </div>
-                <button type="submit" class="w-full btn-primary py-3 rounded-lg font-bold mt-4">Enviar Solicitud</button>
+                <button type="submit" class="md:col-span-2 btn-primary py-3 rounded-xl font-bold mt-2">Enviar a un asesor</button>
             </form>
         </div>
     </div>
 
-    <nav class="fixed w-full z-50 px-6 py-4 flex justify-between items-center bg-slate-950/80 backdrop-blur-md">
-        <img src="logozentek.png" alt="Zentek Logo" class="h-10">
-        <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
+    <nav class="fixed w-full z-50 px-6 md:px-20 py-4 flex justify-between items-center bg-slate-950/80 backdrop-blur-md border-b border-white/5">
+        <img src="logozentek.png" alt="Zentek" class="h-8">
+        <div class="hidden lg:flex space-x-8 text-sm font-medium text-slate-400">
             <a href="#inicio" class="hover:text-blue-400">Inicio</a>
-            <a href="#catalogo" class="hover:text-blue-400">Marcas</a>
-            <a href="#ventajas" class="hover:text-blue-400">Ventajas</a>
+            <a href="#proceso" class="hover:text-blue-400">Proceso</a>
+            <a href="#especificaciones" class="hover:text-blue-400">Equipos</a>
             <a href="#planes" class="hover:text-blue-400">Planes</a>
+            <a href="#faq" class="hover:text-blue-400">Ayuda</a>
         </div>
-        <button onclick="openModal()" class="btn-primary px-6 py-2 rounded-full text-sm font-bold">Contáctanos</button>
+        <button onclick="openModal()" class="btn-primary px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider">Contacto</button>
     </nav>
 
-    <section id="inicio" class="hero-gradient min-h-screen flex flex-col justify-center px-6 md:px-20 relative">
-        <div class="max-w-3xl z-10">
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-6">Potenciando la <span class="text-blue-500">Tecnología</span> de tu Empresa</h1>
-            <p class="text-slate-400 text-lg mb-10">Equipos de alto desempeño y soporte técnico especializado para Zentek.</p>
-            <div class="flex space-x-4">
-                <a href="#catalogo" class="btn-primary px-8 py-3 rounded-lg font-bold">Ver Catálogo</a>
-                <button onclick="openModal()" class="border border-slate-700 hover:bg-slate-800 px-8 py-3 rounded-lg font-bold">Solicitar Demo</button>
+    <section id="inicio" class="hero-gradient min-h-screen flex flex-col justify-center px-6 md:px-20 relative pt-20">
+        <div class="max-w-4xl z-10">
+            <span class="text-blue-500 font-bold tracking-[0.3em] uppercase text-xs mb-4 block">Tecnología de Grado Empresarial</span>
+            <h1 class="text-5xl md:text-8xl font-black mb-8 tracking-tighter leading-none">EQUIPA TU EMPRESA CON <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-700">ZENTEK.</span></h1>
+            <p class="text-slate-400 text-lg md:text-2xl mb-12 max-w-2xl leading-relaxed">Venta y arrendamiento de hardware de alto desempeño con soporte técnico en sitio 24/7. Reducimos tu brecha tecnológica.</p>
+            <div class="flex flex-wrap gap-4">
+                <a href="#catalogo" class="btn-primary px-10 py-4 rounded-xl font-bold flex items-center">Explorar Catálogo <i data-lucide="arrow-right" class="ml-2 w-5"></i></a>
+                <button onclick="openModal()" class="bg-white/5 hover:bg-white/10 border border-white/10 px-10 py-4 rounded-xl font-bold transition">Solicitar Demo</button>
             </div>
         </div>
     </section>
 
-    <section id="catalogo" class="py-16 bg-slate-950 border-y border-slate-900">
+    <section id="catalogo" class="py-12 bg-slate-950 border-y border-white/5">
         <div class="slider">
-            <div class="slide-track">
-                <div class="slide"><p class="font-bold text-slate-700">DELL</p></div>
-                <div class="slide"><p class="font-bold text-slate-700">HP</p></div>
-                <div class="slide"><p class="font-bold text-slate-700">LENOVO</p></div>
-                <div class="slide"><p class="font-bold text-slate-700">APPLE</p></div>
-                <div class="slide"><p class="font-bold text-slate-700">ASUS</p></div>
-                <div class="slide"><p class="font-bold text-slate-700">INTEL</p></div>
-                <div class="slide"><p class="font-bold text-slate-700">AMD</p></div>
-                <div class="slide"><p class="font-bold text-slate-700">DELL</p></div>
-                <div class="slide"><p class="font-bold text-slate-700">HP</p></div>
-                <div class="slide"><p class="font-bold text-slate-700">LENOVO</p></div>
-                <div class="slide"><p class="font-bold text-slate-700">APPLE</p></div>
-                <div class="slide"><p class="font-bold text-slate-700">ASUS</p></div>
-                <div class="slide"><p class="font-bold text-slate-700">INTEL</p></div>
-                <div class="slide"><p class="font-bold text-slate-700">AMD</p></div>
+            <div class="slide-track text-xl font-black italic">
+                <div class="slide">DELL</div><div class="slide">HP</div><div class="slide">LENOVO</div><div class="slide">APPLE</div>
+                <div class="slide">ASUS</div><div class="slide">INTEL</div><div class="slide">AMD</div>
+                <div class="slide">DELL</div><div class="slide">HP</div><div class="slide">LENOVO</div><div class="slide">APPLE</div>
+                <div class="slide">ASUS</div><div class="slide">INTEL</div><div class="slide">AMD</div>
             </div>
         </div>
     </section>
 
-    <section id="planes" class="py-24 px-6 md:px-20 bg-slate-950/50">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="card-blur p-10 rounded-3xl">
-                <h4 class="text-blue-400 font-bold mb-6 italic text-xl">Plan Pyme</h4>
-                <div class="text-4xl font-bold mb-6">$999</div>
-                <button onclick="openModal()" class="w-full py-3 rounded-lg border border-slate-700 hover:bg-slate-800 transition">Cotizar</button>
+    <section id="proceso" class="py-32 px-6 md:px-20">
+        <div class="text-center mb-20">
+            <h2 class="text-4xl font-bold mb-4">Nuestro Método <span class="text-blue-500 italic">360°</span></h2>
+            <p class="text-slate-500 max-w-xl mx-auto">Acompañamos tu inversión desde el análisis inicial hasta el retiro del equipo.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+            <div class="relative">
+                <div class="text-6xl font-black text-blue-500/10 absolute -top-10 left-0 leading-none">01</div>
+                <h4 class="text-xl font-bold mb-4">Consultoría Técnica</h4>
+                <p class="text-slate-400 text-sm">Analizamos el flujo de trabajo de cada departamento para entregar el equipo exacto sin desperdicio de recursos.</p>
             </div>
-            <div class="card-blur p-10 rounded-3xl border-blue-500">
-                <h4 class="text-blue-400 font-bold mb-6 italic text-xl">Empresarial</h4>
-                <div class="text-4xl font-bold mb-6">$2,499</div>
-                <button onclick="openModal()" class="w-full py-3 rounded-lg btn-primary font-bold">Contratar</button>
+            <div class="relative">
+                <div class="text-6xl font-black text-blue-500/10 absolute -top-10 left-0 leading-none">02</div>
+                <h4 class="text-xl font-bold mb-4">Despliegue Logístico</h4>
+                <p class="text-slate-400 text-sm">Entrega programada con equipos pre-configurados (imágenes de SO personalizadas) listos para producir.</p>
             </div>
-            <div class="card-blur p-10 rounded-3xl">
-                <h4 class="text-blue-400 font-bold mb-6 italic text-xl">Corporativo</h4>
-                <div class="text-4xl font-bold mb-6">$4,999</div>
-                <button onclick="openModal()" class="w-full py-3 rounded-lg border border-slate-700 hover:bg-slate-800 transition">Cotizar</button>
+            <div class="relative">
+                <div class="text-6xl font-black text-blue-500/10 absolute -top-10 left-0 leading-none">03</div>
+                <h4 class="text-xl font-bold mb-4">Soporte Continuo</h4>
+                <p class="text-slate-400 text-sm">Garantía de cambio inmediato y soporte remoto o presencial para asegurar que tu operación nunca se detenga.</p>
             </div>
         </div>
     </section>
+
+    <section id="especificaciones" class="py-32 bg-slate-900/20 px-6 md:px-20">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div class="max-w-xl">
+                <h2 class="text-4xl font-bold mb-4">Hardware de <span class="text-blue-500">Última Generación</span></h2>
+                <p class="text-slate-400">Configuraciones optimizadas para ingeniería, diseño y administración de datos.</p>
+            </div>
+            <div class="flex space-x-2">
+                <div class="px-4 py-2 rounded-full border border-blue-500/30 text-blue-400 text-xs font-bold uppercase">Procesadores 2026</div>
+                <div class="px-4 py-2 rounded-full border border-blue-500/30 text-blue-400 text-xs font-bold uppercase">Seguridad TPM</div>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="card-blur p-6 rounded-3xl">
+                <i data-lucide="monitor" class="text-blue-500 mb-6"></i>
+                <h5 class="font-bold mb-2">Workstations</h5>
+                <p class="text-slate-500 text-xs">Torres para renders y cálculo pesado con GPUs NVIDIA RTX.</p>
+            </div>
+            <div class="card-blur p-6 rounded-3xl">
+                <i data-lucide="laptop" class="text-blue-500 mb-6"></i>
+                <h5 class="font-bold mb-2">Laptops Ejecutivas</h5>
+                <p class="text-slate-500 text-xs">Ultrabooks con 12h+ de batería y chasis de fibra de carbono.</p>
+            </div>
+            <div class="card-blur p-6 rounded-3xl">
+                <i data-lucide="server" class="text-blue-500 mb-6"></i>
+                <h5 class="font-bold mb-2">Servidores Rack</h5>
+                <p class="text-slate-500 text-xs">Infraestructura escalable para bases de datos críticas.</p>
+            </div>
+            <div class="card-blur p-6 rounded-3xl">
+                <i data-lucide="hard-drive" class="text-blue-500 mb-6"></i>
+                <h5 class="font-bold mb-2">Storage NAS</h5>
+                <p class="text-slate-500 text-xs">Almacenamiento en red con redundancia total RAID.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="planes" class="py-32 px-6 md:px-20">
+        <div class="text-center mb-20">
+            <h2 class="text-4xl font-bold mb-4">Inversión Inteligente</h2>
+            <p class="text-slate-500">Planes diseñados para cada etapa de crecimiento empresarial.</p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="card-blur p-10 rounded-[2.5rem] flex flex-col h-full">
+                <h4 class="text-blue-400 font-bold tracking-widest uppercase text-xs mb-4 italic">Zentek Start</h4>
+                <div class="text-5xl font-black mb-8">$999 <span class="text-sm font-normal text-slate-500">/lote 5pzs</span></div>
+                <ul class="space-y-4 mb-10 text-sm text-slate-300 flex-grow">
+                    <li class="flex items-start"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-blue-500 shrink-0"></i> Laptops Intel i5 / 16GB RAM / 512GB SSD</li>
+                    <li class="flex items-start"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-blue-500 shrink-0"></i> Licencias Windows 11 Pro incluidas</li>
+                    <li class="flex items-start"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-blue-500 shrink-0"></i> Soporte técnico remoto (L-V 9-18h)</li>
+                    <li class="flex items-start"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-blue-500 shrink-0"></i> Kit básico: Mouse y Maletín</li>
+                </ul>
+                <button onclick="openModal('pyme')" class="w-full py-4 rounded-xl border border-white/10 hover:bg-white/5 transition font-bold">Cotizar Plan</button>
+            </div>
+
+            <div class="card-blur p-10 rounded-[2.5rem] border-blue-500 ring-4 ring-blue-500/10 flex flex-col h-full transform lg:-translate-y-6">
+                <div class="bg-blue-500 text-[10px] font-black uppercase px-4 py-1 rounded-full w-max mb-6 tracking-tighter">Recomendado</div>
+                <h4 class="text-blue-400 font-bold tracking-widest uppercase text-xs mb-4 italic">Zentek Business</h4>
+                <div class="text-5xl font-black mb-8">$2,499 <span class="text-sm font-normal text-slate-500">/lote 5pzs</span></div>
+                <ul class="space-y-4 mb-10 text-sm text-slate-200 flex-grow">
+                    <li class="flex items-start"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-blue-500 shrink-0"></i> Workstations i7 o Ryzen 7 / 32GB RAM / RTX 4060</li>
+                    <li class="flex items-start"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-blue-500 shrink-0"></i> Soporte 24/7 en sitio (Respuesta < 4h)</li>
+                    <li class="flex items-start"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-blue-500 shrink-0"></i> Seguro contra accidentes y robo</li>
+                    <li class="flex items-start"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-blue-500 shrink-0"></i> Monitores Duales 24" 2K</li>
+                </ul>
+                <button onclick="openModal('empresarial')" class="w-full py-4 rounded-xl btn-primary font-bold shadow-lg shadow-blue-500/20">Contratar Ahora</button>
+            </div>
+
+            <div class="card-blur p-10 rounded-[2.5rem] flex flex-col h-full">
+                <h4 class="text-blue-400 font-bold tracking-widest uppercase text-xs mb-4 italic">Zentek Elite</h4>
+                <div class="text-5xl font-black mb-8">$4,999 <span class="text-sm font-normal text-slate-500">/mes</span></div>
+                <ul class="space-y-4 mb-10 text-sm text-slate-300 flex-grow">
+                    <li class="flex items-start"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-blue-500 shrink-0"></i> Arrendamiento puro de infraestructura total</li>
+                    <li class="flex items-start"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-blue-500 shrink-0"></i> Servidores dedicados y conectividad de red</li>
+                    <li class="flex items-start"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-blue-500 shrink-0"></i> Renovación de equipos cada 18 meses</li>
+                    <li class="flex items-start"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-blue-500 shrink-0"></i> Consultor TI dedicado in-house</li>
+                </ul>
+                <button onclick="openModal('corporativo')" class="w-full py-4 rounded-xl border border-white/10 hover:bg-white/5 transition font-bold">Solicitar Consultoría</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-32 bg-slate-900/10 px-6 md:px-20">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center">Preguntas Frecuentes</h2>
+            <div class="space-y-6">
+                <div class="border-b border-white/5 pb-6">
+                    <h5 class="font-bold mb-2">¿Ofrecen planes de arrendamiento (Leasing)?</h5>
+                    <p class="text-slate-500 text-sm">Sí, contamos con esquemas deducibles de impuestos que permiten a tu empresa actualizar equipos cada 12 o 24 meses sin descapitalizarse.</p>
+                </div>
+                <div class="border-b border-white/5 pb-6">
+                    <h5 class="font-bold mb-2">¿Cuál es el tiempo de respuesta del soporte?</h5>
+                    <p class="text-slate-500 text-sm">Para el plan Empresarial y Corporativo, el tiempo de respuesta presencial es menor a 4 horas en zonas urbanas.</p>
+                </div>
+                <div class="border-b border-white/5 pb-6">
+                    <h5 class="font-bold mb-2">¿Los equipos vienen con software instalado?</h5>
+                    <p class="text-slate-500 text-sm">Entregamos los equipos con Windows Pro y las herramientas de seguridad necesarias, o podemos cargar tu propia imagen de disco corporativa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 px-6 md:px-20 border-t border-white/5 bg-slate-950">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+            <img src="logozentek.png" alt="Zentek" class="h-6 opacity-50">
+            <p class="text-slate-600 text-xs tracking-widest uppercase">&copy; 2026 ZENTEK SOLUTIONS. TODOS LOS DERECHOS RESERVADOS.</p>
+            <div class="flex space-x-6">
+                <i data-lucide="linkedin" class="text-slate-600 hover:text-white cursor-pointer w-5"></i>
+                <i data-lucide="instagram" class="text-slate-600 hover:text-white cursor-pointer w-5"></i>
+                <i data-lucide="twitter" class="text-slate-600 hover:text-white cursor-pointer w-5"></i>
+            </div>
+        </div>
+    </footer>
 
     <script>
         lucide.createIcons();
-
         const modal = document.getElementById('modal-overlay');
+        const select = document.getElementById('plan-select');
 
-        function openModal() {
+        function openModal(plan) {
             modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Bloquea scroll
+            document.body.style.overflow = 'hidden';
+            if(plan) select.value = plan;
         }
 
         function closeModal() {
             modal.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Habilita scroll
+            document.body.style.overflow = 'auto';
         }
 
-        // Cerrar modal si se hace click fuera del contenido
-        window.onclick = function(event) {
-            if (event.target == modal) closeModal();
-        }
+        window.onclick = function(event) { if (event.target == modal) closeModal(); }
     </script>
 </body>
 </html>
