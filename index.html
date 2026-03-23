@@ -7,213 +7,148 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        html {
-            scroll-behavior: smooth; /* Para que el salto sea suave */
-        }
-        body {
-            background-color: #020617;
-            color: #f8fafc;
-        }
-        .hero-gradient {
-            background: radial-gradient(circle at top right, #1e3a8a 0%, #020617 50%);
-        }
-        .card-blur {
-            background: rgba(30, 41, 59, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .btn-primary {
-            background: linear-gradient(90deg, #3b82f6, #2563eb);
-            transition: all 0.3s ease;
-        }
-        .btn-primary:hover {
-            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
-            transform: translateY(-2px);
-        }
+        html { scroll-behavior: smooth; }
+        body { background-color: #020617; color: #f8fafc; }
+        .hero-gradient { background: radial-gradient(circle at top right, #1e3a8a 0%, #020617 50%); }
+        .card-blur { background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .btn-primary { background: linear-gradient(90deg, #3b82f6, #2563eb); transition: all 0.3s ease; }
+        .btn-primary:hover { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); transform: translateY(-2px); }
 
-        /* --- Estilos para el Carrusel Infinito --- */
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-200px * 7)); } /* Ajustar 7 por el nº de logos únicos */
-        }
+        /* Estilos Carrusel */
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-200px * 7)); } }
+        .slider { height: 100px; overflow: hidden; position: relative; width: 100%; }
+        .slide-track { animation: scroll 40s linear infinite; display: flex; width: calc(200px * 14); }
+        .slide { width: 200px; display: flex; align-items: center; justify-content: center; padding: 15px; }
+        .slider img { max-height: 80%; opacity: 0.6; transition: 0.3s; filter: grayscale(1); }
+        .slider img:hover { opacity: 1; filter: grayscale(0); }
 
-        .slider {
-            background: transparent;
-            height: 100px;
-            margin: auto;
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-        }
-
-        .slider .slide-track {
-            animation: scroll 40s linear infinite; /* 40s controla la velocidad */
-            display: flex;
-            width: calc(200px * 14); /* 14 es el total de imágenes (únicas + duplicadas) */
-        }
-
-        .slider .slide {
-            height: 100px;
-            width: 200px; /* Ancho de cada contenedor de logo */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-        }
-
-        .slider img {
-            max-height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-            opacity: 0.6; /* Un tono grisáceo elegante */
-            transition: opacity 0.3s ease;
-        }
-
-        .slider img:hover {
-            opacity: 1; /* Color completo al pasar el mouse */
-        }
+        /* Modal Styles */
+        #modal-overlay { display: none; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(4px); }
     </style>
 </head>
 <body class="font-sans">
 
+    <div id="modal-overlay" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="card-blur w-full max-w-md p-8 rounded-3xl shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i data-lucide="x"></i>
+            </button>
+            
+            <h3 class="text-2xl font-bold mb-2">Solicitar Información</h3>
+            <p class="text-slate-400 text-sm mb-6">Déjanos tus datos y un asesor de Zentek se contactará contigo.</p>
+
+            <form action="https://formspree.io/f/mqakpzoz" method="POST" class="space-y-4">
+                <input type="hidden" name="_next" value="https://tu-sitio.com/gracias">
+                <input type="hidden" name="_to" value="quito453@gmail.com">
+
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Nombre Completo</label>
+                    <input type="text" name="nombre" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Email Corporativo</label>
+                    <input type="email" name="email" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Empresa</label>
+                    <input type="text" name="empresa" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Servicio de Interés</label>
+                    <select name="servicio" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 transition appearance-none">
+                        <option value="pyme">Plan Pyme</option>
+                        <option value="empresarial">Plan Empresarial</option>
+                        <option value="corporativo">Plan Corporativo</option>
+                        <option value="otro">Otro / Consultoría</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full btn-primary py-3 rounded-lg font-bold mt-4">Enviar Solicitud</button>
+            </form>
+        </div>
+    </div>
+
     <nav class="fixed w-full z-50 px-6 py-4 flex justify-between items-center bg-slate-950/80 backdrop-blur-md">
-        <div>
-            <img src="logozentek.png" alt="Zentek Logo" class="h-10">
-        </div>
+        <img src="logozentek.png" alt="Zentek Logo" class="h-10">
         <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
-            <a href="#inicio" class="hover:text-blue-400 transition">Inicio</a>
-            <a href="#catalogo" class="hover:text-blue-400 transition">Marcas</a> <a href="#ventajas" class="hover:text-blue-400 transition">Ventajas</a>
-            <a href="#soluciones" class="hover:text-blue-400 transition">Soluciones</a>
-            <a href="#planes" class="hover:text-blue-400 transition">Planes</a>
+            <a href="#inicio" class="hover:text-blue-400">Inicio</a>
+            <a href="#catalogo" class="hover:text-blue-400">Marcas</a>
+            <a href="#ventajas" class="hover:text-blue-400">Ventajas</a>
+            <a href="#planes" class="hover:text-blue-400">Planes</a>
         </div>
-        <a href="#contacto" class="btn-primary px-6 py-2 rounded-full text-sm font-bold">Contáctanos</a>
+        <button onclick="openModal()" class="btn-primary px-6 py-2 rounded-full text-sm font-bold">Contáctanos</button>
     </nav>
 
-    <section id="inicio" class="hero-gradient min-h-screen flex flex-col justify-center px-6 md:px-20 relative overflow-hidden">
+    <section id="inicio" class="hero-gradient min-h-screen flex flex-col justify-center px-6 md:px-20 relative">
         <div class="max-w-3xl z-10">
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
-                Potenciando el Futuro de tu <span class="text-blue-500">Infraestructura</span>
-            </h1>
-            <p class="text-slate-400 text-lg md:text-xl mb-10 max-w-xl">
-                Zentek transforma la operatividad de tu empresa con equipo de cómputo de alto rendimiento y soluciones tecnológicas a medida.
-            </p>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6">Potenciando la <span class="text-blue-500">Tecnología</span> de tu Empresa</h1>
+            <p class="text-slate-400 text-lg mb-10">Equipos de alto desempeño y soporte técnico especializado para Zentek.</p>
             <div class="flex space-x-4">
-                <a href="#catalogo" class="btn-primary px-8 py-3 rounded-lg font-bold text-center">Ver Catálogo</a>
-                <button class="border border-slate-700 hover:bg-slate-800 px-8 py-3 rounded-lg font-bold transition">Saber más</button>
+                <a href="#catalogo" class="btn-primary px-8 py-3 rounded-lg font-bold">Ver Catálogo</a>
+                <button onclick="openModal()" class="border border-slate-700 hover:bg-slate-800 px-8 py-3 rounded-lg font-bold">Solicitar Demo</button>
             </div>
-        </div>
-        <div class="absolute right-[-10%] top-1/4 opacity-20 hidden lg:block">
-            <i data-lucide="cpu" class="w-96 h-96 text-blue-500"></i>
         </div>
     </section>
 
-    <section id="catalogo" class="py-16 bg-slate-950 border-y border-slate-900 overflow-hidden">
-        <div class="text-center mb-10">
-            <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest">Nuestras Alianzas Estatégicas</h3>
-            <p class="text-slate-400 mt-2">Equipos certificados por las marcas líderes del mercado.</p>
-        </div>
-
+    <section id="catalogo" class="py-16 bg-slate-950 border-y border-slate-900">
         <div class="slider">
             <div class="slide-track">
-                <div class="slide"><img src="ruta/al/logo_dell.png" alt="Dell"></div>
-                <div class="slide"><img src="ruta/al/logo_hp.png" alt="HP"></div>
-                <div class="slide"><img src="ruta/al/logo_lenovo.png" alt="Lenovo"></div>
-                <div class="slide"><img src="ruta/al/logo_apple.png" alt="Apple"></div>
-                <div class="slide"><img src="ruta/al/logo_asus.png" alt="Asus"></div>
-                <div class="slide"><img src="ruta/al/logo_microsoft.png" alt="Microsoft"></div>
-                <div class="slide"><img src="ruta/al/logo_samsung.png" alt="Samsung"></div>
-
-                <div class="slide"><img src="ruta/al/logo_dell.png" alt="Dell"></div>
-                <div class="slide"><img src="ruta/al/logo_hp.png" alt="HP"></div>
-                <div class="slide"><img src="ruta/al/logo_lenovo.png" alt="Lenovo"></div>
-                <div class="slide"><img src="ruta/al/logo_apple.png" alt="Apple"></div>
-                <div class="slide"><img src="ruta/al/logo_asus.png" alt="Asus"></div>
-                <div class="slide"><img src="ruta/al/logo_microsoft.png" alt="Microsoft"></div>
-                <div class="slide"><img src="ruta/al/logo_samsung.png" alt="Samsung"></div>
-            </div>
-        </div>
-    </section>
-    <section id="ventajas" class="py-24 px-6 md:px-20 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">¿Por qué <span class="text-blue-500">Zentek</span>?</h2>
-        <p class="text-slate-400 mb-16 max-w-2xl mx-auto">Equipamiento de vanguardia diseñado para optimizar la productividad empresarial.</p>
-        
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div class="card-blur p-8 rounded-2xl text-left">
-                <i data-lucide="shield-check" class="text-blue-500 mb-4"></i>
-                <h3 class="text-xl font-bold mb-2">Garantía Total</h3>
-                <p class="text-slate-400 text-sm">Respaldo directo en sitio para que tu operación nunca se detenga.</p>
-            </div>
-            <div class="card-blur p-8 rounded-2xl text-left">
-                <i data-lucide="zap" class="text-blue-500 mb-4"></i>
-                <h3 class="text-xl font-bold mb-2">Alto Rendimiento</h3>
-                <p class="text-slate-400 text-sm">Equipos configurados con los últimos procesadores del mercado.</p>
-            </div>
-            <div class="card-blur p-8 rounded-2xl text-left">
-                <i data-lucide="server" class="text-blue-500 mb-4"></i>
-                <h3 class="text-xl font-bold mb-2">Escalabilidad</h3>
-                <p class="text-slate-400 text-sm">Soluciones que crecen al ritmo de tu departamento de TI.</p>
-            </div>
-            <div class="card-blur p-8 rounded-2xl text-left">
-                <i data-lucide="headphones" class="text-blue-500 mb-4"></i>
-                <h3 class="text-xl font-bold mb-2">Soporte 24/7</h3>
-                <p class="text-slate-400 text-sm">Asesoría técnica especializada siempre disponible para tu empresa.</p>
+                <div class="slide"><p class="font-bold text-slate-700">DELL</p></div>
+                <div class="slide"><p class="font-bold text-slate-700">HP</p></div>
+                <div class="slide"><p class="font-bold text-slate-700">LENOVO</p></div>
+                <div class="slide"><p class="font-bold text-slate-700">APPLE</p></div>
+                <div class="slide"><p class="font-bold text-slate-700">ASUS</p></div>
+                <div class="slide"><p class="font-bold text-slate-700">INTEL</p></div>
+                <div class="slide"><p class="font-bold text-slate-700">AMD</p></div>
+                <div class="slide"><p class="font-bold text-slate-700">DELL</p></div>
+                <div class="slide"><p class="font-bold text-slate-700">HP</p></div>
+                <div class="slide"><p class="font-bold text-slate-700">LENOVO</p></div>
+                <div class="slide"><p class="font-bold text-slate-700">APPLE</p></div>
+                <div class="slide"><p class="font-bold text-slate-700">ASUS</p></div>
+                <div class="slide"><p class="font-bold text-slate-700">INTEL</p></div>
+                <div class="slide"><p class="font-bold text-slate-700">AMD</p></div>
             </div>
         </div>
     </section>
 
     <section id="planes" class="py-24 px-6 md:px-20 bg-slate-950/50">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold mb-4">Planes Corporativos</h2>
-            <p class="text-slate-400">Escoge el nivel de equipamiento que mejor se adapte a tu equipo.</p>
-        </div>
-
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="card-blur p-10 rounded-3xl relative">
-                <h4 class="text-blue-400 font-bold mb-2">Plan Pyme</h4>
-                <div class="text-4xl font-bold mb-6">$999<span class="text-sm font-normal text-slate-500">/lote</span></div>
-                <p class="text-slate-400 mb-8">Ideal para startups y oficinas pequeñas.</p>
-                <ul class="space-y-4 mb-10 text-sm">
-                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Laptops Ultrabook</li>
-                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Soporte remoto</li>
-                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Periféricos básicos</li>
-                </ul>
-                <button class="w-full py-3 rounded-lg border border-slate-700 hover:bg-slate-800 transition">Cotizar</button>
+            <div class="card-blur p-10 rounded-3xl">
+                <h4 class="text-blue-400 font-bold mb-6 italic text-xl">Plan Pyme</h4>
+                <div class="text-4xl font-bold mb-6">$999</div>
+                <button onclick="openModal()" class="w-full py-3 rounded-lg border border-slate-700 hover:bg-slate-800 transition">Cotizar</button>
             </div>
-
-            <div class="card-blur p-10 rounded-3xl border-blue-500/50 relative transform md:-translate-y-4">
-                <div class="absolute top-0 right-10 bg-blue-500 text-xs font-bold px-3 py-1 rounded-b-lg uppercase">Más Popular</div>
-                <h4 class="text-blue-400 font-bold mb-2">Empresarial</h4>
-                <div class="text-4xl font-bold mb-6">$2,499<span class="text-sm font-normal text-slate-500">/lote</span></div>
-                <p class="text-slate-400 mb-8">Para empresas en expansión con necesidades robustas.</p>
-                <ul class="space-y-4 mb-10 text-sm">
-                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Todo en Plan Pyme</li>
-                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Estaciones de trabajo Pro</li>
-                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Soporte en sitio</li>
-                </ul>
-                <button class="w-full py-3 rounded-lg btn-primary font-bold">Cotizar Ahora</button>
+            <div class="card-blur p-10 rounded-3xl border-blue-500">
+                <h4 class="text-blue-400 font-bold mb-6 italic text-xl">Empresarial</h4>
+                <div class="text-4xl font-bold mb-6">$2,499</div>
+                <button onclick="openModal()" class="w-full py-3 rounded-lg btn-primary font-bold">Contratar</button>
             </div>
-
-            <div class="card-blur p-10 rounded-3xl relative">
-                <h4 class="text-blue-400 font-bold mb-2">Corporativo</h4>
-                <div class="text-4xl font-bold mb-6">$4,999<span class="text-sm font-normal text-slate-500">/lote</span></div>
-                <p class="text-slate-400 mb-8">Infraestructura completa para grandes corporativos.</p>
-                <ul class="space-y-4 mb-10 text-sm">
-                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Todo en Empresarial</li>
-                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Servidores Dedicados</li>
-                    <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-500"></i> Consultoría TI</li>
-                </ul>
-                <button class="w-full py-3 rounded-lg border border-slate-700 hover:bg-slate-800 transition">Contratar</button>
+            <div class="card-blur p-10 rounded-3xl">
+                <h4 class="text-blue-400 font-bold mb-6 italic text-xl">Corporativo</h4>
+                <div class="text-4xl font-bold mb-6">$4,999</div>
+                <button onclick="openModal()" class="w-full py-3 rounded-lg border border-slate-700 hover:bg-slate-800 transition">Cotizar</button>
             </div>
         </div>
     </section>
 
-    <footer class="py-10 border-t border-slate-900 text-center text-slate-500 text-sm">
-        <p>&copy; 2026 Zentek. Todos los derechos reservados.</p>
-    </footer>
-
     <script>
-        // Inicializar iconos
         lucide.createIcons();
+
+        const modal = document.getElementById('modal-overlay');
+
+        function openModal() {
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Bloquea scroll
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Habilita scroll
+        }
+
+        // Cerrar modal si se hace click fuera del contenido
+        window.onclick = function(event) {
+            if (event.target == modal) closeModal();
+        }
     </script>
 </body>
 </html>
