@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Orden Recibida! | Zentek</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { background-color: #020617; color: #f8fafc; }
+        .card-blur { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .success-glow { box-shadow: 0 0 40px rgba(34, 197, 94, 0.2); }
+    </style>
+</head>
+<body class="font-sans min-h-screen flex items-center justify-center p-6">
+
+    <div class="max-w-2xl w-full">
+        <div class="card-blur rounded-[3rem] p-10 text-center relative overflow-hidden success-glow">
+            
+            <div class="w-20 h-20 bg-green-500/10 border border-green-500/50 rounded-full flex items-center justify-center mx-auto mb-8">
+                <i data-lucide="check" class="text-green-500 w-10 h-10"></i>
+            </div>
+
+            <h1 class="text-3xl md:text-4xl font-black mb-4 tracking-tight">¡ORDEN RECIBIDA CON ÉXITO!</h1>
+            <p class="text-slate-400 mb-8">Gracias por confiar en **Zentek**. Hemos enviado un correo de confirmación a tu bandeja de entrada.</p>
+
+            <div class="bg-slate-900/50 rounded-2xl p-6 text-left mb-8 border border-white/5">
+                <div class="flex justify-between mb-4 pb-4 border-b border-white/5">
+                    <span class="text-slate-500 text-sm uppercase font-bold">Número de Orden:</span>
+                    <span class="font-mono text-blue-400">#ZK-2026-8842</span>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-slate-400">Estado del Pago:</span>
+                        <span class="bg-yellow-500/10 text-yellow-500 px-2 py-0.5 rounded text-[10px] font-bold uppercase">Pendiente de Validación</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-slate-400">Método:</span>
+                        <span>Transferencia Bancaria (BI)</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-slate-400">Tiempo de Entrega:</span>
+                        <span>24 - 48 Horas Hábiles</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-sm text-slate-500 mb-10 bg-blue-500/5 p-4 rounded-xl border border-blue-500/10">
+                <p class="flex items-center justify-center">
+                    <i data-lucide="info" class="w-4 h-4 mr-2 text-blue-400"></i>
+                    Recuerda enviar tu comprobante a **pagos@zentek.com** para agilizar el despacho.
+                </p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="index.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-4 rounded-2xl transition flex items-center justify-center">
+                    <i data-lucide="home" class="mr-2 w-4"></i> Volver al Inicio
+                </a>
+                <button onclick="window.print()" class="border border-white/10 hover:bg-white/5 text-white font-bold px-8 py-4 rounded-2xl transition flex items-center justify-center">
+                    <i data-lucide="download" class="mr-2 w-4"></i> Descargar Recibo (PDF)
+                </button>
+            </div>
+        </div>
+
+        <p class="text-center text-slate-600 text-[10px] mt-8 tracking-[0.2em] uppercase">
+            Zentek Guatemala S.A. | Tecnología de Alto Rendimiento
+        </p>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
