@@ -157,7 +157,118 @@
             </div>
         </div>
     </section>
+<section id="diagnostico" class="py-32 px-6 md:px-20 bg-slate-950">
+    <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-16">
+            <span class="text-blue-500 font-bold tracking-widest uppercase text-xs">Herramienta de Autodiagnóstico</span>
+            <h2 class="text-4xl font-bold mt-2 text-white">¿Qué tan segura es su <span class="text-blue-500 italic">Infraestructura?</span></h2>
+            <p class="text-slate-500 mt-4">Haga clic en los puntos que su empresa cumple actualmente.</p>
+        </div>
 
+        <div id="checklist-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <div class="card-blur p-5 rounded-2xl flex items-center space-x-4 cursor-pointer group border border-slate-800" onclick="toggleCheck(this)">
+                <div class="check-box w-6 h-6 rounded-lg border-2 border-slate-700 flex items-center justify-center group-hover:border-blue-500 transition-all shadow-inner">
+                    <i data-lucide="check" class="w-4 h-4 text-white hidden"></i>
+                </div>
+                <div>
+                    <h6 class="font-bold text-sm text-white">Backups Diarios Automáticos</h6>
+                    <p class="text-xs text-slate-500 italic">Protección total fuera de sitio.</p>
+                </div>
+                <input type="checkbox" class="hidden">
+            </div>
+
+            <div class="card-blur p-5 rounded-2xl flex items-center space-x-4 cursor-pointer group border border-slate-800" onclick="toggleCheck(this)">
+                <div class="check-box w-6 h-6 rounded-lg border-2 border-slate-700 flex items-center justify-center group-hover:border-blue-500 transition-all shadow-inner">
+                    <i data-lucide="check" class="w-4 h-4 text-white hidden"></i>
+                </div>
+                <div>
+                    <h6 class="font-bold text-sm text-white">UPS y Protección Eléctrica</h6>
+                    <p class="text-xs text-slate-500 italic">Equipos protegidos contra picos.</p>
+                </div>
+                <input type="checkbox" class="hidden">
+            </div>
+
+            <div class="card-blur p-5 rounded-2xl flex items-center space-x-4 cursor-pointer group border border-slate-800" onclick="toggleCheck(this)">
+                <div class="check-box w-6 h-6 rounded-lg border-2 border-slate-700 flex items-center justify-center group-hover:border-blue-500 transition-all shadow-inner">
+                    <i data-lucide="check" class="w-4 h-4 text-white hidden"></i>
+                </div>
+                <div>
+                    <h6 class="font-bold text-sm text-white">Antivirus Empresarial (EDR)</h6>
+                    <p class="text-xs text-slate-500 italic">Seguridad activa en cada PC.</p>
+                </div>
+                <input type="checkbox" class="hidden">
+            </div>
+
+            <div class="card-blur p-5 rounded-2xl flex items-center space-x-4 cursor-pointer group border border-slate-800" onclick="toggleCheck(this)">
+                <div class="check-box w-6 h-6 rounded-lg border-2 border-slate-700 flex items-center justify-center group-hover:border-blue-500 transition-all shadow-inner">
+                    <i data-lucide="check" class="w-4 h-4 text-white hidden"></i>
+                </div>
+                <div>
+                    <h6 class="font-bold text-sm text-white">Soporte Técnico < 4 Horas</h6>
+                    <p class="text-xs text-slate-500 italic">Continuidad de negocio garantizada.</p>
+                </div>
+                <input type="checkbox" class="hidden">
+            </div>
+
+        </div>
+
+        <div id="result-box" class="mt-12 p-8 rounded-3xl bg-blue-600/10 border border-blue-500/30 text-center hidden">
+            <h3 class="text-2xl font-bold mb-2 text-white">Nivel de Seguridad: <span id="score-number" class="text-blue-400">0</span>/4</h3>
+            <p id="score-text" class="text-slate-400 mb-6 font-medium"></p>
+            <button onclick="openModal()" class="btn-primary px-8 py-3 rounded-xl font-bold shadow-lg shadow-blue-500/40">Solicitar Informe de Mejora</button>
+        </div>
+    </div>
+</section>
+<script>
+    // Inicializar iconos de Lucide (esto es importante para que se vea el check)
+    lucide.createIcons();
+
+    function toggleCheck(el) {
+        // Buscamos el checkbox y el icono dentro de la tarjeta que recibió el clic
+        const checkbox = el.querySelector('input[type="checkbox"]');
+        const checkIcon = el.querySelector('[data-lucide="check"]');
+        const checkBoxDiv = el.querySelector('.check-box');
+        
+        // Invertimos el estado
+        checkbox.checked = !checkbox.checked;
+        
+        if (checkbox.checked) {
+            checkIcon.classList.remove('hidden');
+            checkBoxDiv.classList.add('bg-blue-600', 'border-blue-600');
+            el.classList.add('border-blue-500/50', 'bg-blue-900/10');
+        } else {
+            checkIcon.classList.add('hidden');
+            checkBoxDiv.classList.remove('bg-blue-600', 'border-blue-600');
+            el.classList.remove('border-blue-500/50', 'bg-blue-900/10');
+        }
+        
+        // Actualizamos Lucide para asegurar que el icono se renderice
+        lucide.createIcons();
+        calculateScore();
+    }
+
+    function calculateScore() {
+        const checks = document.querySelectorAll('#checklist-grid input[type="checkbox"]');
+        const resultBox = document.getElementById('result-box');
+        const scoreNum = document.getElementById('score-number');
+        const scoreText = document.getElementById('score-text');
+        
+        let score = 0;
+        checks.forEach(c => { if(c.checked) score++; });
+        
+        scoreNum.innerText = score;
+        resultBox.classList.remove('hidden');
+
+        if (score <= 1) {
+            scoreText.innerText = "⚠️ RIESGO CRÍTICO: Su empresa está expuesta a pérdidas de datos y paros técnicos.";
+        } else if (score <= 3) {
+            scoreText.innerText = "🟠 VULNERABILIDAD MEDIA: Tiene protecciones básicas, pero requiere optimización profesional.";
+        } else {
+            scoreText.innerText = "🟢 EXCELENCIA: Su infraestructura es sólida. Hablemos de cómo escalarla aún más.";
+        }
+    }
+</script>
     <section id="faq" class="py-32 bg-slate-900/10 px-6 md:px-20">
         <div class="max-w-3xl mx-auto">
             <h2 class="text-3xl font-bold mb-12 text-center italic">Preguntas de Negocio</h2>
