@@ -3,212 +3,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zentek | Consultoría TI & Ecosistemas Digitales</title>
+    <title>Zentek | Ecosistemas Tecnológicos & Consultoría AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        html { scroll-behavior: smooth; }
-        body { background-color: #020617; color: #f8fafc; overflow-x: hidden; }
-        .hero-gradient { background: radial-gradient(circle at top right, #1e3a8a 0%, #020617 50%); }
-        .card-blur { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease; }
-        .card-blur:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.4); box-shadow: 0 10px 30px -15px rgba(59, 130, 246, 0.3); }
-        .btn-primary { background: linear-gradient(90deg, #3b82f6, #2563eb); transition: all 0.3s ease; }
-        .btn-primary:hover { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); transform: translateY(-2px); }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
         
+        html { scroll-behavior: smooth; }
+        body { 
+            background-color: #020617; 
+            color: #f8fafc; 
+            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .hero-gradient { 
+            background: radial-gradient(circle at 80% 20%, #1e3a8a 0%, #020617 60%); 
+        }
+
+        /* Efecto Glassmorphism Refinado */
+        .card-blur { 
+            background: rgba(15, 23, 42, 0.6); 
+            backdrop-filter: blur(16px); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        .card-blur:hover { 
+            transform: translateY(-8px); 
+            border-color: rgba(59, 130, 246, 0.4); 
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 20px rgba(59, 130, 246, 0.1); 
+        }
+
+        .btn-primary { 
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); 
+            transition: all 0.3s ease; 
+        }
+        .btn-primary:hover { 
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.5); 
+            transform: translateY(-2px); 
+        }
+
+        /* Animaciones */
         @keyframes scroll { 
             0% { transform: translateX(0); } 
             100% { transform: translateX(calc(-200px * 7)); } 
         }
-        .slide-track { animation: scroll 30s linear infinite; display: flex; width: calc(200px * 14); align-items: center; }
-        .slide { width: 200px; display: flex; justify-content: center; color: #64748b; transition: color 0.3s ease; font-size: 1.1rem; font-weight: 800; letter-spacing: 0.1em; }
-        .slide:hover { color: #f8fafc; }
-        #modal-overlay { display: none; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(8px); }
+        .slide-track { animation: scroll 40s linear infinite; display: flex; width: calc(200px * 14); align-items: center; }
+        .slide { width: 200px; display: flex; justify-content: center; color: #475569; font-weight: 800; letter-spacing: 0.1em; font-size: 0.9rem; }
+
+        @keyframes pulse-soft {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.6); }
+            70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+        .animate-call { animation: pulse-soft 2.5s infinite; }
+
+        #modal-overlay { display: none; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px); }
+    .footer-link { color: #64748b; transition: all 0.3s ease; font-size: 0.75rem; font-weight: 400; }
+    .footer-link:hover { color: #3b82f6; transform: translateX(5px); }
+    .footer-header { color: #f8fafc; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.65rem; margin-bottom: 1.5rem; display: block; }
+    .newsletter-input { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.05); color: white; }
+    .newsletter-input:focus { border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.1); }
     </style>
 </head>
-<body class="font-sans">
+<body class="antialiased">
 
     <div id="modal-overlay" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
-        <div class="card-blur w-full max-w-lg p-8 rounded-3xl relative text-slate-100">
-            <button onclick="closeModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white"><i data-lucide="x"></i></button>
-            <h3 class="text-2xl font-bold mb-2">Solicitar Consultoría Especializada</h3>
-            <p class="text-slate-400 text-sm mb-6">Diseñemos juntos la hoja de ruta digital de su organización.</p>
-            <form action="https://formspree.io/f/mqakpzoz" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="md:col-span-2">
-                    <label class="text-xs font-bold text-slate-500 uppercase tracking-tighter">Nombre y Cargo</label>
-                    <input type="text" name="nombre" required class="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-2 mt-1 focus:border-blue-500 outline-none">
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-slate-500 uppercase tracking-tighter">Email Corporativo</label>
-                    <input type="email" name="email" required class="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-2 mt-1 focus:border-blue-500 outline-none">
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-slate-500 uppercase tracking-tighter">Interés Principal</label>
-                    <select name="interes" class="w-full bg-slate-900/50 border border-slate-700 rounded-lg px-4 py-2 mt-1 focus:border-blue-500 outline-none text-sm text-slate-300">
-                        <option value="ai">Implementación de AI</option>
-                        <option value="cloud">Cloud (Odoo/Oracle/365)</option>
-                        <option value="consulting">IT Consulting</option>
-                        <option value="hardware">Infraestructura & Hardware</option>
-                    </select>
-                </div>
-                <button type="submit" class="md:col-span-2 btn-primary py-3 rounded-xl font-bold mt-2">Agendar Cita de Negocios</button>
+        <div class="card-blur w-full max-w-lg p-10 rounded-[2rem] relative">
+            <button onclick="closeModal()" class="absolute top-8 right-8 text-slate-500 hover:text-white transition"><i data-lucide="x"></i></button>
+            <h3 class="text-3xl font-black mb-2 uppercase tracking-tighter">Consultoría <span class="text-blue-500">Senior</span></h3>
+            <p class="text-slate-400 text-sm mb-8 font-light">Inicie la transformación digital de su organización con un diagnóstico experto.</p>
+            <form action="https://formspree.io/f/mqakpzoz" method="POST" class="space-y-4">
+                <input type="text" name="nombre" placeholder="NOMBRE Y CARGO" required class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-5 py-3 focus:border-blue-500 outline-none text-xs tracking-widest font-bold">
+                <input type="email" name="email" placeholder="EMAIL CORPORATIVO" required class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-5 py-3 focus:border-blue-500 outline-none text-xs tracking-widest font-bold">
+                <select name="interes" class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-5 py-3 focus:border-blue-500 outline-none text-[10px] tracking-widest font-bold text-slate-400">
+                    <option value="ai">INTEGRACIÓN DE AI</option>
+                    <option value="cloud">CLOUD & ERP (ODOO/ORACLE)</option>
+                    <option value="consulting">IT CONSULTING ESTRATÉGICO</option>
+                    <option value="hardware">APROVISIONAMIENTO CRÍTICO</option>
+                </select>
+                <button type="submit" class="w-full btn-primary py-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] mt-4">Solicitar Intervención</button>
             </form>
         </div>
     </div>
 
-    <nav class="fixed w-full z-50 px-6 md:px-20 py-4 flex justify-between items-center bg-slate-950/80 backdrop-blur-md border-b border-white/5">
+    <nav class="fixed w-full z-50 px-6 md:px-20 py-5 flex justify-between items-center bg-slate-950/40 backdrop-blur-xl border-b border-white/5">
         <div class="text-2xl font-black tracking-tighter text-blue-500">ZENTEK</div>
-        <div class="hidden lg:flex space-x-8 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
-            <a href="#inicio" class="hover:text-blue-400 transition">Inicio</a>
-            <a href="#servicios-expertos" class="hover:text-blue-400 transition">Servicios</a>
-            <a href="#soluciones" class="hover:text-blue-400 transition">Hardware</a>
-            <a href="#planes" class="hover:text-blue-400 transition">Planes Managed</a>
+        <div class="hidden lg:flex space-x-10 text-[10px] font-bold text-slate-400 uppercase tracking-[0.25em]">
+            <a href="#metodologia" class="hover:text-blue-400 transition">Metodología</a>
+            <a href="#servicios" class="hover:text-blue-400 transition">Estrategia</a>
+            <a href="#hardware" class="hover:text-blue-400 transition">Infraestructura</a>
+            <a href="#sectores" class="hover:text-blue-400 transition">Sectores</a>
         </div>
-        <button onclick="openModal()" class="btn-primary px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest">Contacto Senior</button>
+        <button onclick="openModal()" class="bg-white text-black px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-blue-500 hover:text-white transition-all">Agendar Demo</button>
     </nav>
 
     <section id="inicio" class="hero-gradient min-h-screen flex flex-col justify-center px-6 md:px-20 relative pt-20">
-        <div class="max-w-4xl z-10">
-            <span class="text-blue-500 font-bold tracking-[0.4em] uppercase text-[10px] mb-4 block italic">Arquitectos de Ecosistemas Digitales</span>
-            <h1 class="text-6xl md:text-8xl font-black mb-8 tracking-tighter leading-[0.9] uppercase">Inteligencia <br> & <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-700">Servicios.</span></h1>
-            <p class="text-slate-400 text-lg md:text-xl mb-12 max-w-2xl leading-relaxed">Más que proveedores, somos su brazo tecnológico. Especialistas en integración de <b>IA</b>, despliegue de <b>Cloud</b> y suministro de infraestructura crítica para el sector corporativo.</p>
-            <div class="flex flex-wrap gap-4">
-                <a href="#servicios-expertos" class="btn-primary px-10 py-4 rounded-xl font-bold flex items-center">Explorar Servicios <i data-lucide="cpu" class="ml-2 w-5"></i></a>
-                <button onclick="openModal()" class="bg-white/5 hover:bg-white/10 border border-white/10 px-10 py-4 rounded-xl font-bold transition">Consultoría Estratégica</button>
+        <div class="max-w-5xl z-10">
+            <div class="inline-flex items-center space-x-2 mb-6">
+                <span class="w-8 h-[1px] bg-blue-500"></span>
+                <span class="text-blue-500 font-bold tracking-[0.5em] uppercase text-[9px] italic">Premium IT Architecture</span>
+            </div>
+            <h1 class="text-6xl md:text-[7rem] font-black mb-10 tracking-tighter leading-[0.85] uppercase">
+                Soberanía <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-700">Tecnológica.</span>
+            </h1>
+            <p class="text-slate-400 text-lg md:text-xl mb-12 max-w-2xl leading-relaxed font-light">
+                No somos un proveedor de equipos, somos su <b>Socio Estratégico de TI</b>. Integramos Inteligencia Artificial, administramos ecosistemas Cloud y aprovisionamos infraestructura crítica con precisión quirúrgica.
+            </p>
+            <div class="flex flex-wrap gap-6">
+                <a href="#servicios" class="btn-primary px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center">Desplegar Soluciones <i data-lucide="arrow-up-right" class="ml-2 w-4"></i></a>
+                <button onclick="openModal()" class="bg-white/5 hover:bg-white/10 border border-white/10 px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest transition">IT Audit Gratis</button>
             </div>
         </div>
     </section>
 
-    <section class="py-12 bg-slate-950 border-y border-white/5">
-        <div class="slider h-[60px] overflow-hidden relative w-full">
-            <div class="slide-track">
-                <div class="slide">ORACLE</div><div class="slide">ODOO</div><div class="slide">MICROSOFT 365</div><div class="slide">DELL</div><div class="slide">HP</div><div class="slide">LENOVO</div><div class="slide">INTEL</div>
-                <div class="slide">ORACLE</div><div class="slide">ODOO</div><div class="slide">MICROSOFT 365</div><div class="slide">DELL</div><div class="slide">HP</div><div class="slide">LENOVO</div><div class="slide">INTEL</div>
+    <section id="metodologia" class="py-32 px-6 md:px-20 bg-slate-950">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="group border-l border-white/5 pl-8 hover:border-blue-500 transition-colors">
+                <span class="text-blue-500/20 text-7xl font-black italic block mb-4 group-hover:text-blue-500 transition-colors">01</span>
+                <h6 class="text-white font-black uppercase tracking-widest text-[10px] mb-3">Auditoría & Diagnóstico</h6>
+                <p class="text-slate-500 text-xs leading-relaxed font-light">Evaluación técnica profunda de sus vulnerabilidades y capacidad de escalabilidad actual.</p>
+            </div>
+            <div class="group border-l border-white/5 pl-8 hover:border-blue-500 transition-colors">
+                <span class="text-blue-500/20 text-7xl font-black italic block mb-4 group-hover:text-blue-500 transition-colors">02</span>
+                <h6 class="text-white font-black uppercase tracking-widest text-[10px] mb-3">Diseño Arquitectónico</h6>
+                <p class="text-slate-500 text-xs leading-relaxed font-light">Ingeniería a medida integrando AI, Cloud y Hardware optimizado para sus procesos financieros.</p>
+            </div>
+            <div class="group border-l border-white/5 pl-8 hover:border-blue-500 transition-colors">
+                <span class="text-blue-500/20 text-7xl font-black italic block mb-4 group-hover:text-blue-500 transition-colors">03</span>
+                <h6 class="text-white font-black uppercase tracking-widest text-[10px] mb-3">Despliegue Táctico</h6>
+                <p class="text-slate-500 text-xs leading-relaxed font-light">Implementación controlada con estándares de cumplimiento (Compliance) y cero tiempo de inactividad.</p>
+            </div>
+            <div class="group border-l border-white/5 pl-8 hover:border-blue-500 transition-colors">
+                <span class="text-blue-500/20 text-7xl font-black italic block mb-4 group-hover:text-blue-500 transition-colors">04</span>
+                <h6 class="text-white font-black uppercase tracking-widest text-[10px] mb-3">Gestión Evolutiva</h6>
+                <p class="text-slate-500 text-xs leading-relaxed font-light">Soporte Managed Services Elite con monitoreo predictivo y actualización tecnológica constante.</p>
             </div>
         </div>
     </section>
 
-    <section id="servicios-expertos" class="py-32 px-6 md:px-20 bg-slate-950">
+    <section id="servicios" class="py-32 px-6 md:px-20 relative">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+            <div class="max-w-2xl">
+                <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-4 leading-none">Servicios de <span class="text-blue-500 italic">Autoridad TI</span></h2>
+                <p class="text-slate-500 font-light text-lg">Soluciones integrales que transforman la infraestructura en un activo rentable.</p>
+            </div>
+            <div class="text-[10px] font-bold text-slate-600 tracking-[0.4em] uppercase border-b border-white/10 pb-2">Especialistas en Integración</div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="card-blur p-12 rounded-[2.5rem] relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity"><i data-lucide="brain-circuit" class="w-24 h-24 text-blue-500"></i></div>
+                <h4 class="text-2xl font-black mb-4 uppercase tracking-tighter">Sistemas de AI</h4>
+                <p class="text-slate-400 text-sm leading-relaxed mb-8 font-light">Despliegue de modelos de lenguaje (LLM) privados y automatización de flujos con inteligencia predictiva.</p>
+                <ul class="text-[10px] font-bold text-blue-400 space-y-2 uppercase tracking-widest">
+                    <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span> Automatización Cognitiva</li>
+                    <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span> Modelos de Data Private</li>
+                </ul>
+            </div>
+            <div class="card-blur p-12 rounded-[2.5rem] border-blue-500/30">
+                <h4 class="text-2xl font-black mb-4 uppercase tracking-tighter">Administración Cloud</h4>
+                <p class="text-slate-400 text-sm leading-relaxed mb-8 font-light">Gestión experta de Oracle Cloud, Odoo ERP y Microsoft 365 para asegurar movilidad y seguridad total de datos.</p>
+                <ul class="text-[10px] font-bold text-blue-400 space-y-2 uppercase tracking-widest">
+                    <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span> Certificación en Odoo/Oracle</li>
+                    <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span> Migración Zero-Risk</li>
+                </ul>
+            </div>
+            <div class="card-blur p-12 rounded-[2.5rem]">
+                <h4 class="text-2xl font-black mb-4 uppercase tracking-tighter">Consultoría IT</h4>
+                <p class="text-slate-400 text-sm leading-relaxed mb-8 font-light">Dirección técnica externa (vCTO), auditorías de seguridad y planes de contingencia ante desastres informáticos.</p>
+                <ul class="text-[10px] font-bold text-blue-400 space-y-2 uppercase tracking-widest">
+                    <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span> Auditoría de Cumplimiento</li>
+                    <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span> vCTO on-demand</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="sectores" class="py-32 px-6 md:px-20 bg-slate-900/10">
+        <div class="text-center mb-20">
+            <span class="text-blue-500 font-bold tracking-[0.5em] uppercase text-[9px]">Dominio del Mercado</span>
+            <h2 class="text-4xl font-black mt-4 uppercase">Sectores de <span class="text-blue-500">Experticia</span></h2>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="card-blur p-8 text-center rounded-3xl">
+                <i data-lucide="building-2" class="w-8 h-8 text-blue-500 mx-auto mb-4"></i>
+                <h6 class="text-[10px] font-black tracking-widest uppercase">Gobierno & SAT</h6>
+            </div>
+            <div class="card-blur p-8 text-center rounded-3xl">
+                <i data-lucide="landmark" class="w-8 h-8 text-blue-500 mx-auto mb-4"></i>
+                <h6 class="text-[10px] font-black tracking-widest uppercase">Banca & Finanzas</h6>
+            </div>
+            <div class="card-blur p-8 text-center rounded-3xl">
+                <i data-lucide="shopping-cart" class="w-8 h-8 text-blue-500 mx-auto mb-4"></i>
+                <h6 class="text-[10px] font-black tracking-widest uppercase">Retail Inteligente</h6>
+            </div>
+            <div class="card-blur p-8 text-center rounded-3xl">
+                <i data-lucide="factory" class="w-8 h-8 text-blue-500 mx-auto mb-4"></i>
+                <h6 class="text-[10px] font-black tracking-widest uppercase">Industria 4.0</h6>
+            </div>
+        </div>
+    </section>
+
+    <section id="hardware" class="py-32 px-6 md:px-20 bg-slate-950">
         <div class="max-w-3xl mb-16">
-            <h2 class="text-4xl font-bold mb-4 uppercase tracking-tighter">Servicios <span class="text-blue-500 italic">Estratégicos</span></h2>
-            <p class="text-slate-500">Transformamos la complejidad técnica en ventaja competitiva.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="card-blur p-10 rounded-3xl">
-                <div class="bg-blue-500/10 w-14 h-14 rounded-2xl flex items-center justify-center mb-6">
-                    <i data-lucide="brain-circuit" class="text-blue-500 w-8 h-8"></i>
-                </div>
-                <h4 class="text-xl font-black mb-3 uppercase tracking-tight">Integración de AI</h4>
-                <p class="text-slate-500 text-sm leading-relaxed mb-6">Automatización de flujos de trabajo mediante LLMs y modelos predictivos personalizados para optimizar la toma de decisiones.</p>
-                <div class="text-[10px] font-bold text-blue-400 tracking-widest uppercase">Eficiencia x10</div>
-            </div>
-            <div class="card-blur p-10 rounded-3xl border-blue-500/20">
-                <div class="bg-blue-500/10 w-14 h-14 rounded-2xl flex items-center justify-center mb-6">
-                    <i data-lucide="cloud-cog" class="text-blue-500 w-8 h-8"></i>
-                </div>
-                <h4 class="text-xl font-black mb-3 uppercase tracking-tight">Ecosistemas Cloud</h4>
-                <p class="text-slate-500 text-sm leading-relaxed mb-6">Implementación y administración de Oracle Cloud, Odoo ERP y el entorno completo de Microsoft 365 Business.</p>
-                <div class="text-[10px] font-bold text-blue-400 tracking-widest uppercase">Escalabilidad Total</div>
-            </div>
-            <div class="card-blur p-10 rounded-3xl">
-                <div class="bg-blue-500/10 w-14 h-14 rounded-2xl flex items-center justify-center mb-6">
-                    <i data-lucide="contact-2" class="text-blue-500 w-8 h-8"></i>
-                </div>
-                <h4 class="text-xl font-black mb-3 uppercase tracking-tight">IT Consulting</h4>
-                <p class="text-slate-500 text-sm leading-relaxed mb-6">Auditorías de infraestructura, diseño de planes de recuperación ante desastres y consultoría de soberanía tecnológica.</p>
-                <div class="text-[10px] font-bold text-blue-400 tracking-widest uppercase">Visión de Negocio</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="soluciones" class="py-32 bg-slate-900/20 px-6 md:px-20">
-        <div class="text-center max-w-3xl mx-auto mb-20">
-            <h2 class="text-4xl font-bold mb-4 uppercase tracking-tighter">Suministro de <span class="text-blue-500 italic">Hardware</span></h2>
-            <p class="text-slate-500">Equipamiento de alto rendimiento con respaldo técnico garantizado.</p>
+            <h2 class="text-4xl font-black uppercase tracking-tighter">Aprovisionamiento <span class="text-blue-500 italic">Crítico</span></h2>
+            <p class="text-slate-500 font-light">Suministro garantizado de infraestructura con certificación de marca.</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="card-blur p-8 rounded-3xl text-left border-white/5">
-                <i data-lucide="laptop" class="text-blue-500 mb-6 w-8 h-8"></i>
-                <h5 class="text-lg font-bold mb-2 uppercase">Cómputo Pro</h5>
-                <p class="text-slate-500 text-xs leading-relaxed">Workstations y Laptops corporativas Dell, HP y Lenovo con soporte in-situ.</p>
+            <div class="card-blur p-8 rounded-3xl border-white/5 group">
+                <i data-lucide="terminal" class="text-blue-500 mb-6 w-10 h-10 group-hover:scale-110 transition-transform"></i>
+                <h5 class="text-lg font-black mb-3 uppercase tracking-tighter">Workstations de Alto Desempeño</h5>
+                <p class="text-slate-500 text-xs leading-relaxed font-light">Equipos Dell Precision y HP Z-Series configurados para ingeniería y análisis de datos masivos.</p>
             </div>
-            <div class="card-blur p-8 rounded-3xl text-left border-white/5">
-                <i data-lucide="server" class="text-blue-500 mb-6 w-8 h-8"></i>
-                <h5 class="text-lg font-bold mb-2 uppercase">Infraestructura</h5>
-                <p class="text-slate-500 text-xs leading-relaxed">Servidores de alta disponibilidad, almacenamiento masivo y networking de grado SAT.</p>
+            <div class="card-blur p-8 rounded-3xl border-white/5 group">
+                <i data-lucide="database" class="text-blue-500 mb-6 w-10 h-10 group-hover:scale-110 transition-transform"></i>
+                <h5 class="text-lg font-black mb-3 uppercase tracking-tighter">Infraestructura de Datos</h5>
+                <p class="text-slate-500 text-xs leading-relaxed font-light">Servidores empresariales y almacenamiento NAS con redundancia total para continuidad operativa.</p>
             </div>
-            <div class="card-blur p-8 rounded-3xl text-left border-white/5">
-                <i data-lucide="qr-code" class="text-blue-500 mb-6 w-8 h-8"></i>
-                <h5 class="text-lg font-bold mb-2 uppercase">Periféricos & POS</h5>
-                <p class="text-slate-500 text-xs leading-relaxed">Escáneres industriales, sistemas de video colaboración y soluciones punto de venta.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="planes" class="py-32 px-6 md:px-20 bg-slate-950">
-        <div class="text-center mb-20">
-            <h2 class="text-4xl font-bold mb-4 uppercase tracking-tighter text-blue-500">Managed Services</h2>
-            <p class="text-slate-500">Gestión delegada para que usted se enfoque en el crecimiento.</p>
-        </div>
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div class="card-blur p-10 rounded-[2.5rem] flex flex-col h-full border-white/5">
-                <h4 class="text-blue-400 font-bold tracking-widest uppercase text-[10px] mb-4 italic">Z-Essential</h4>
-                <div class="text-slate-400 mb-8 text-sm">Administración básica de licencias y soporte remoto especializado.</div>
-                <ul class="space-y-4 mb-10 text-xs text-slate-300 flex-grow">
-                    <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-3 text-blue-500"></i> Gestión de Microsoft 365</li>
-                    <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-3 text-blue-500"></i> Soporte remoto 8x5</li>
-                    <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-3 text-blue-500"></i> Configuración inicial de hardware</li>
-                </ul>
-                <button onclick="openModal('essential')" class="w-full py-4 rounded-xl border border-white/10 hover:bg-white/5 transition font-bold uppercase text-[10px] tracking-widest">Cotizar</button>
-            </div>
-
-            <div class="card-blur p-10 rounded-[2.5rem] border-blue-500 ring-4 ring-blue-500/10 flex flex-col h-full transform lg:-translate-y-6">
-                <div class="bg-blue-500 text-[10px] font-black uppercase px-4 py-1 rounded-full w-max mb-6 tracking-tighter">Full Stack TI</div>
-                <h4 class="text-blue-400 font-bold tracking-widest uppercase text-[10px] mb-4 italic">Z-Professional</h4>
-                <div class="text-slate-400 mb-8 text-sm">Administración de Cloud, ERP y mantenimiento proactivo de flota.</div>
-                <ul class="space-y-4 mb-10 text-xs text-slate-200 flex-grow">
-                    <li class="flex items-start"><i data-lucide="shield-check" class="w-4 h-4 mr-3 text-blue-500"></i> Soporte para Odoo / Oracle</li>
-                    <li class="flex items-start"><i data-lucide="shield-check" class="w-4 h-4 mr-3 text-blue-500"></i> Mantenimiento preventivo trimestral</li>
-                    <li class="flex items-start"><i data-lucide="shield-check" class="w-4 h-4 mr-3 text-blue-500"></i> Venta de equipo contingente</li>
-                </ul>
-                <button onclick="openModal('professional')" class="w-full py-4 rounded-xl btn-primary font-bold shadow-lg shadow-blue-500/20 uppercase text-[10px] tracking-widest">Plan Proactivo</button>
-            </div>
-
-            <div class="card-blur p-10 rounded-[2.5rem] flex flex-col h-full border-white/5">
-                <h4 class="text-blue-400 font-bold tracking-widest uppercase text-[10px] mb-4 italic">Z-Elite</h4>
-                <div class="text-slate-400 mb-8 text-sm">CISO-as-a-Service e implementación continua de Inteligencia Artificial.</div>
-                <ul class="space-y-4 mb-10 text-xs text-slate-300 flex-grow">
-                    <li class="flex items-start"><i data-lucide="zap" class="w-4 h-4 mr-3 text-blue-500"></i> Consultoría IA Trimestral</li>
-                    <li class="flex items-start"><i data-lucide="zap" class="w-4 h-4 mr-3 text-blue-500"></i> Auditoría de seguridad anual</li>
-                    <li class="flex items-start"><i data-lucide="zap" class="w-4 h-4 mr-3 text-blue-500"></i> Soporte 24/7 VIP</li>
-                </ul>
-                <button onclick="openModal('elite')" class="w-full py-4 rounded-xl border border-white/10 hover:bg-white/5 transition font-bold uppercase text-[10px] tracking-widest">Elite Consultoría</button>
+            <div class="card-blur p-8 rounded-3xl border-white/5 group">
+                <i data-lucide="scan" class="text-blue-500 mb-6 w-10 h-10 group-hover:scale-110 transition-transform"></i>
+                <h5 class="text-lg font-black mb-3 uppercase tracking-tighter">Periféricos Industriales</h5>
+                <p class="text-slate-500 text-xs leading-relaxed font-light">Escáneres de alto volumen y sistemas de colaboración de fidelidad premium.</p>
             </div>
         </div>
     </section>
 
-    <footer class="py-20 px-6 md:px-20 border-t border-white/5 bg-slate-950 text-center md:text-left">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+    <section class="py-16 bg-slate-950 border-y border-white/5">
+        <div class="slider h-[50px] overflow-hidden relative w-full opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
+            <div class="slide-track">
+                <div class="slide italic">ORACLE CLOUD</div><div class="slide italic">ODOO GOLD</div><div class="slide italic">DELL ENTERPRISE</div><div class="slide italic">MICROSOFT 365</div><div class="slide italic">HP PLATINUM</div><div class="slide italic">LENOVO PRO</div><div class="slide italic">CISCO SYSTEMS</div>
+                <div class="slide italic">ORACLE CLOUD</div><div class="slide italic">ODOO GOLD</div><div class="slide italic">DELL ENTERPRISE</div><div class="slide italic">MICROSOFT 365</div><div class="slide italic">HP PLATINUM</div><div class="slide italic">LENOVO PRO</div><div class="slide italic">CISCO SYSTEMS</div>
+            </div>
+        </div>
+    </section>
+
+    <a href="TU_LINK_DE_CALENDLY" target="_blank" class="fixed bottom-8 right-8 z-[60] animate-call flex items-center bg-blue-600 hover:bg-blue-500 text-white px-7 py-5 rounded-2xl shadow-2xl transition-all duration-300 group">
+        <div class="flex flex-col items-end mr-4">
+            <span class="text-[10px] font-black uppercase tracking-[0.3em] opacity-80">Book a Strategy Call</span>
+            <span class="text-xs font-bold whitespace-nowrap">Diagnóstico TI Sin Costo</span>
+        </div>
+        <div class="bg-white/20 p-2 rounded-lg group-hover:rotate-12 transition-transform">
+            <i data-lucide="calendar-check-2" class="w-6 h-6"></i>
+        </div>
+    </a>
+
+<footer class="pt-24 pb-12 px-6 md:px-20 border-t border-white/5 bg-[#020617] relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-900/5 blur-[120px] rounded-full -z-10"></div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20 relative z-10">
+            <div class="space-y-8">
+                <div>
+                    <div class="text-3xl font-black text-blue-500 tracking-tighter">ZENTEK</div>
+                    <p class="text-slate-500 text-[11px] font-bold tracking-[0.3em] uppercase mt-2">Intelligence & Infrastructure</p>
+                </div>
+                <p class="text-slate-500 text-xs leading-relaxed font-light max-w-xs">
+                    Arquitectos de ecosistemas digitales para el sector corporativo y gubernamental en Guatemala. Elevando la soberanía tecnológica desde 2025.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-slate-600 hover:text-blue-500 transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-600 hover:text-blue-500 transition-colors"><i data-lucide="mail" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+
             <div>
-                <div class="text-3xl font-black text-blue-500 tracking-tighter">ZENTEK</div>
-                <p class="text-slate-600 text-[10px] font-bold mt-2 tracking-widest uppercase">Elevando la soberanía tecnológica en Guatemala.</p>
+                <span class="footer-header">Study Cases</span>
+                <ul class="space-y-5">
+                    <li>
+                        <a href="Zentek_Case_Study_SAT.pdf" download="Zentek_Caso_SAT_2026.pdf" class="footer-link flex flex-col group">
+                            <div class="flex items-center">
+                                <span class="text-slate-200 group-hover:text-blue-400 font-bold text-xs uppercase tracking-tight transition-colors">Optimización SAT 2026</span>
+                                <i data-lucide="download" class="w-3 h-3 ml-2 opacity-0 group-hover:opacity-100 text-blue-400 transition-all"></i>
+                            </div>
+                            <span class="text-[10px] text-slate-500 italic mt-1 font-light">Estrategia de digitalización masiva.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Zentek_Case_Study_Banca.pdf" download="Zentek_Caso_Banca_IA.pdf" class="footer-link flex flex-col group">
+                            <div class="flex items-center">
+                                <span class="text-slate-200 group-hover:text-blue-400 font-bold text-xs uppercase tracking-tight transition-colors">AI en Banca Central</span>
+                                <i data-lucide="download" class="w-3 h-3 ml-2 opacity-0 group-hover:opacity-100 text-blue-400 transition-all"></i>
+                            </div>
+                            <span class="text-[10px] text-slate-500 italic mt-1 font-light">Modelos predictivos de riesgo financiero.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Zentek_Case_Study_Retail.pdf" download="Zentek_Caso_Retail_Cloud.pdf" class="footer-link flex flex-col group">
+                            <div class="flex items-center">
+                                <span class="text-slate-200 group-hover:text-blue-400 font-bold text-xs uppercase tracking-tight transition-colors">Retail Efficiency</span>
+                                <i data-lucide="download" class="w-3 h-3 ml-2 opacity-0 group-hover:opacity-100 text-blue-400 transition-all"></i>
+                            </div>
+                            <span class="text-[10px] text-slate-500 italic mt-1 font-light">Infraestructura Cloud para 50+ puntos.</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <div class="text-slate-500 text-[10px] font-medium tracking-widest uppercase">
-                AI INTEGRATION | CLOUD SERVICES | HARDWARE PRO
+
+            <div>
+                <span class="footer-header">Explorar</span>
+                <ul class="space-y-4">
+                    <li><a href="#servicios-expertos" class="footer-link flex items-center">Consultoría AI & Cloud</a></li>
+                    <li><a href="#hardware" class="footer-link flex items-center">Aprovisionamiento Crítico</a></li>
+                    <li><a href="#metodologia" class="footer-link flex items-center">Nuestra Metodología</a></li>
+                    <li><a href="#" class="footer-link text-blue-400/80 font-bold">Portal de Soporte VIP</a></li>
+                </ul>
             </div>
-            <div class="flex justify-center md:justify-end space-x-8 text-slate-400">
-                <i data-lucide="linkedin" class="hover:text-blue-500 cursor-pointer w-5"></i>
-                <i data-lucide="mail" class="hover:text-blue-500 cursor-pointer w-5"></i>
+
+            <div>
+                <span class="footer-header">Tech Insights</span>
+                <p class="text-slate-500 text-[10px] mb-6 uppercase tracking-widest font-bold">Reciba reportes de tendencias mensuales.</p>
+                <form class="space-y-3">
+                    <input type="email" placeholder="Email Corporativo" class="newsletter-input w-full px-5 py-4 rounded-xl text-[10px] uppercase font-bold outline-none transition-all">
+                    <button type="submit" class="w-full btn-primary py-4 rounded-xl text-[10px] font-black uppercase tracking-widest">Suscribirse</button>
+                </form>
             </div>
         </div>
-        <div class="mt-20 text-center text-slate-800 text-[9px] font-bold tracking-widest">
-            &copy; 2026 ZENTEK SOLUTIONS. TODOS LOS DERECHOS RESERVADOS.
+
+        <div class="pt-12 border-t border-white/5">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex flex-wrap justify-center md:justify-start gap-8 text-[9px] font-black text-slate-600 uppercase tracking-[0.3em]">
+                    <a href="#" class="hover:text-slate-300">Privacidad</a>
+                    <a href="#" class="hover:text-slate-300">Compliance</a>
+                    <a href="#" class="hover:text-slate-300">RGAE GT</a>
+                </div>
+                <div class="text-[9px] font-black text-slate-800 tracking-[0.4em] uppercase text-center md:text-right">
+                    © 2026 ZENTEK SOLUTIONS GT. ELEVANDO LA SOBERANÍA TECNOLÓGICA.
+                </div>
+            </div>
         </div>
     </footer>
 
     <script>
         lucide.createIcons();
         const modal = document.getElementById('modal-overlay');
-        function openModal(plan) {
+        function openModal() {
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
