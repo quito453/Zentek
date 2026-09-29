@@ -1,350 +1,555 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zentek | Ecosistemas Tecnológicos & Consultoría AI</title>
+    <title>Zentek | Nearshore BPO & IT Outsourcing from Guatemala</title>
+    <meta name="description" content="Zentek is a nearshore BPO and ITO provider in Guatemala: bilingual (English/Spanish) technical support, 24/7 helpdesk, infrastructure management, network monitoring (NOC) and software development & maintenance.">
+    <meta name="keywords" content="nearshore outsourcing, BPO Guatemala, IT outsourcing, bilingual technical support, helpdesk outsourcing, managed IT services, NOC monitoring, software maintenance, Latin America">
+    <link rel="canonical" href="https://quito453.github.io/Zentek/">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Open Graph (LinkedIn, WhatsApp, Clutch previews) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Zentek | Nearshore BPO & IT Outsourcing from Guatemala">
+    <meta property="og:description" content="Bilingual support, helpdesk, infrastructure management, NOC monitoring and software development — delivered from Guatemala, in your time zone.">
+    <meta property="og:url" content="https://quito453.github.io/Zentek/">
+    <meta property="og:image" content="https://quito453.github.io/Zentek/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Zentek Solutions",
+      "url": "https://quito453.github.io/Zentek/",
+      "logo": "https://quito453.github.io/Zentek/logozentek.png",
+      "description": "Nearshore BPO and IT Outsourcing (ITO) provider based in Guatemala.",
+      "address": { "@type": "PostalAddress", "addressLocality": "Guatemala City", "addressCountry": "GT" },
+      "areaServed": ["US", "CA", "Latin America"],
+      "knowsLanguage": ["en", "es"],
+      "makesOffer": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bilingual Technical Support" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "IT Helpdesk / Service Desk" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Infrastructure Management" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Network Monitoring (NOC)" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Software Development & Maintenance" } }
+      ]
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
-        
-        html { scroll-behavior: smooth; }
-        body { 
-            background-color: #020617; 
-            color: #f8fafc; 
-            overflow-x: hidden;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .hero-gradient { 
-            background: radial-gradient(circle at 80% 20%, #1e3a8a 0%, #020617 60%); 
-        }
-
-        /* Efecto Glassmorphism Refinado */
-        .card-blur { 
-            background: rgba(15, 23, 42, 0.6); 
-            backdrop-filter: blur(16px); 
-            border: 1px solid rgba(255, 255, 255, 0.05); 
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
-        }
-        .card-blur:hover { 
-            transform: translateY(-8px); 
-            border-color: rgba(59, 130, 246, 0.4); 
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 20px rgba(59, 130, 246, 0.1); 
-        }
-
-        .btn-primary { 
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); 
-            transition: all 0.3s ease; 
-        }
-        .btn-primary:hover { 
-            box-shadow: 0 0 25px rgba(59, 130, 246, 0.5); 
-            transform: translateY(-2px); 
-        }
-
-        /* Animaciones */
-        @keyframes scroll { 
-            0% { transform: translateX(0); } 
-            100% { transform: translateX(calc(-200px * 7)); } 
-        }
-        .slide-track { animation: scroll 40s linear infinite; display: flex; width: calc(200px * 14); align-items: center; }
-        .slide { width: 200px; display: flex; justify-content: center; color: #475569; font-weight: 800; letter-spacing: 0.1em; font-size: 0.9rem; }
-
-        @keyframes pulse-soft {
-            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.6); }
-            70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
-        }
-        .animate-call { animation: pulse-soft 2.5s infinite; }
-
-        #modal-overlay { display: none; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px); }
-    .footer-link { color: #64748b; transition: all 0.3s ease; font-size: 0.75rem; font-weight: 400; }
-    .footer-link:hover { color: #3b82f6; transform: translateX(5px); }
-    .footer-header { color: #f8fafc; font-weight: 900; text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.65rem; margin-bottom: 1.5rem; display: block; }
-    .newsletter-input { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.05); color: white; }
-    .newsletter-input:focus { border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.1); }
-    </style>
+    <link rel="stylesheet" href="assets/site.css">
 </head>
-<body class="antialiased">
+<body class="antialiased" data-title-es="Zentek | BPO y Outsourcing de TI Nearshore desde Guatemala">
 
-    <div id="modal-overlay" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
-        <div class="card-blur w-full max-w-lg p-10 rounded-[2rem] relative">
-            <button onclick="closeModal()" class="absolute top-8 right-8 text-slate-500 hover:text-white transition"><i data-lucide="x"></i></button>
-            <h3 class="text-3xl font-black mb-2 uppercase tracking-tighter">Consultoría <span class="text-blue-500">Senior</span></h3>
-            <p class="text-slate-400 text-sm mb-8 font-light">Inicie la transformación digital de su organización con un diagnóstico experto.</p>
-            <form action="https://formspree.io/f/mqakpzoz" method="POST" class="space-y-4">
-                <input type="text" name="nombre" placeholder="NOMBRE Y CARGO" required class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-5 py-3 focus:border-blue-500 outline-none text-xs tracking-widest font-bold">
-                <input type="email" name="email" placeholder="EMAIL CORPORATIVO" required class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-5 py-3 focus:border-blue-500 outline-none text-xs tracking-widest font-bold">
-                <select name="interes" class="w-full bg-slate-900/50 border border-white/10 rounded-xl px-5 py-3 focus:border-blue-500 outline-none text-[10px] tracking-widest font-bold text-slate-400">
-                    <option value="ai">INTEGRACIÓN DE AI</option>
-                    <option value="cloud">CLOUD & ERP (ODOO/ORACLE)</option>
-                    <option value="consulting">IT CONSULTING ESTRATÉGICO</option>
-                    <option value="hardware">APROVISIONAMIENTO CRÍTICO</option>
-                </select>
-                <button type="submit" class="w-full btn-primary py-4 rounded-xl font-black text-xs uppercase tracking-[0.2em] mt-4">Solicitar Intervención</button>
-            </form>
-        </div>
-    </div>
+    <div id="site-header"></div>
 
-    <nav class="fixed w-full z-50 px-6 md:px-20 py-5 flex justify-between items-center bg-slate-950/40 backdrop-blur-xl border-b border-white/5">
-        <div class="text-2xl font-black tracking-tighter text-blue-500">ZENTEK</div>
-        <div class="hidden lg:flex space-x-10 text-[10px] font-bold text-slate-400 uppercase tracking-[0.25em]">
-            <a href="#metodologia" class="hover:text-blue-400 transition">Metodología</a>
-            <a href="#servicios" class="hover:text-blue-400 transition">Estrategia</a>
-            <a href="#hardware" class="hover:text-blue-400 transition">Infraestructura</a>
-            <a href="#sectores" class="hover:text-blue-400 transition">Sectores</a>
-        </div>
-        <button onclick="openModal()" class="bg-white text-black px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-blue-500 hover:text-white transition-all">Agendar Demo</button>
-    </nav>
-
-    <section id="inicio" class="hero-gradient min-h-screen flex flex-col justify-center px-6 md:px-20 relative pt-20">
+    <!-- ===================== HERO ===================== -->
+    <section id="inicio" class="hero-gradient min-h-screen flex flex-col justify-center px-5 md:px-12 lg:px-20 relative pt-28 pb-16">
         <div class="max-w-5xl z-10">
-            <div class="inline-flex items-center space-x-2 mb-6">
+            <div class="inline-flex items-center space-x-3 mb-6">
                 <span class="w-8 h-[1px] bg-blue-500"></span>
-                <span class="text-blue-500 font-bold tracking-[0.5em] uppercase text-[9px] italic">Premium IT Architecture</span>
+                <span class="eyebrow" data-i18n="hero.eyebrow">Nearshore BPO &amp; IT Outsourcing · Guatemala</span>
             </div>
-            <h1 class="text-6xl md:text-[7rem] font-black mb-10 tracking-tighter leading-[0.85] uppercase">
-                Soberanía <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-700">Tecnológica.</span>
+            <h1 class="text-5xl md:text-7xl lg:text-[5.5rem] font-black mb-8 tracking-tighter leading-[0.95]" data-i18n="hero.title">
+                Your support and IT team, <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">in your time zone.</span>
             </h1>
-            <p class="text-slate-400 text-lg md:text-xl mb-12 max-w-2xl leading-relaxed font-light">
-                No somos un proveedor de equipos, somos su <b>Socio Estratégico de TI</b>. Integramos Inteligencia Artificial, administramos ecosistemas Cloud y aprovisionamos infraestructura crítica con precisión quirúrgica.
+            <p class="text-slate-300 text-lg md:text-xl mb-10 max-w-3xl leading-relaxed font-light" data-i18n="hero.lead">
+                Zentek runs bilingual technical support, helpdesk, infrastructure management, network monitoring and software development for companies in the US and Latin America — from Guatemala, with the processes, reporting and SLAs you'd expect from an in-house team.
             </p>
-            <div class="flex flex-wrap gap-6">
-                <a href="#servicios" class="btn-primary px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center">Desplegar Soluciones <i data-lucide="arrow-up-right" class="ml-2 w-4"></i></a>
-                <button onclick="openModal()" class="bg-white/5 hover:bg-white/10 border border-white/10 px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest transition">IT Audit Gratis</button>
+            <div class="flex flex-wrap gap-4 mb-14">
+                <a href="#contact" class="btn-primary px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest flex items-center">
+                    <span data-i18n="hero.cta1">Get a proposal</span> <i data-lucide="arrow-up-right" class="ml-2 w-4"></i>
+                </a>
+                <a href="#services" class="bg-white/5 hover:bg-white/10 border border-white/10 px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition" data-i18n="hero.cta2">See services</a>
+            </div>
+
+            <ul class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl">
+                <li class="card-static rounded-2xl p-4">
+                    <i data-lucide="languages" class="w-5 h-5 text-blue-400 mb-2"></i>
+                    <p class="text-sm font-bold" data-i18n="hero.chip1.t">English &amp; Spanish</p>
+                    <p class="text-xs text-slate-400" data-i18n="hero.chip1.d">Bilingual agents and engineers</p>
+                </li>
+                <li class="card-static rounded-2xl p-4">
+                    <i data-lucide="clock" class="w-5 h-5 text-blue-400 mb-2"></i>
+                    <p class="text-sm font-bold" data-i18n="hero.chip2.t">US Central Time</p>
+                    <p class="text-xs text-slate-400" data-i18n="hero.chip2.d">Real-time overlap, no night shifts</p>
+                </li>
+                <li class="card-static rounded-2xl p-4">
+                    <i data-lucide="shield-check" class="w-5 h-5 text-blue-400 mb-2"></i>
+                    <p class="text-sm font-bold" data-i18n="hero.chip3.t">SLA-backed</p>
+                    <p class="text-xs text-slate-400" data-i18n="hero.chip3.d">Monthly KPI reports</p>
+                </li>
+                <li class="card-static rounded-2xl p-4">
+                    <i data-lucide="rocket" class="w-5 h-5 text-blue-400 mb-2"></i>
+                    <p class="text-sm font-bold" data-i18n="hero.chip4.t">30-day pilot</p>
+                    <p class="text-xs text-slate-400" data-i18n="hero.chip4.d">Start small, scale when it works</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===================== BPO / ITO PILLARS ===================== -->
+    <section class="py-24 px-5 md:px-12 lg:px-20 bg-slate-950">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="card-static rounded-[2rem] p-10">
+                <span class="eyebrow">BPO</span>
+                <h2 class="text-3xl font-black mt-3 mb-4 tracking-tight" data-i18n="pillar.bpo.t">Business Process Outsourcing</h2>
+                <p class="text-slate-400 leading-relaxed mb-6" data-i18n="pillar.bpo.d">Customer-facing operations your users feel every day: bilingual technical support by phone, chat and email, customer onboarding and tier-1 product support for SaaS and e-commerce.</p>
+                <div class="flex flex-wrap gap-2 text-xs font-bold text-blue-300">
+                    <span class="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20" data-i18n="tag.voice">Voice</span>
+                    <span class="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20">Chat</span>
+                    <span class="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20">Email</span>
+                    <span class="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20" data-i18n="tag.onboarding">Customer onboarding</span>
+                </div>
+            </div>
+            <div class="card-static rounded-[2rem] p-10">
+                <span class="eyebrow">ITO</span>
+                <h2 class="text-3xl font-black mt-3 mb-4 tracking-tight" data-i18n="pillar.ito.t">IT Outsourcing</h2>
+                <p class="text-slate-400 leading-relaxed mb-6" data-i18n="pillar.ito.d">The technical backbone behind your business: internal IT helpdesk, server and cloud administration, 24/7 network monitoring, and dedicated developers to build and maintain your software.</p>
+                <div class="flex flex-wrap gap-2 text-xs font-bold text-cyan-300">
+                    <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">Service Desk</span>
+                    <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">Cloud &amp; M365</span>
+                    <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">NOC 24/7</span>
+                    <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20" data-i18n="tag.dev">Software development</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="metodologia" class="py-32 px-6 md:px-20 bg-slate-950">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
-            <div class="group border-l border-white/5 pl-8 hover:border-blue-500 transition-colors">
-                <span class="text-blue-500/20 text-7xl font-black italic block mb-4 group-hover:text-blue-500 transition-colors">01</span>
-                <h6 class="text-white font-black uppercase tracking-widest text-[10px] mb-3">Auditoría & Diagnóstico</h6>
-                <p class="text-slate-500 text-xs leading-relaxed font-light">Evaluación técnica profunda de sus vulnerabilidades y capacidad de escalabilidad actual.</p>
-            </div>
-            <div class="group border-l border-white/5 pl-8 hover:border-blue-500 transition-colors">
-                <span class="text-blue-500/20 text-7xl font-black italic block mb-4 group-hover:text-blue-500 transition-colors">02</span>
-                <h6 class="text-white font-black uppercase tracking-widest text-[10px] mb-3">Diseño Arquitectónico</h6>
-                <p class="text-slate-500 text-xs leading-relaxed font-light">Ingeniería a medida integrando AI, Cloud y Hardware optimizado para sus procesos financieros.</p>
-            </div>
-            <div class="group border-l border-white/5 pl-8 hover:border-blue-500 transition-colors">
-                <span class="text-blue-500/20 text-7xl font-black italic block mb-4 group-hover:text-blue-500 transition-colors">03</span>
-                <h6 class="text-white font-black uppercase tracking-widest text-[10px] mb-3">Despliegue Táctico</h6>
-                <p class="text-slate-500 text-xs leading-relaxed font-light">Implementación controlada con estándares de cumplimiento (Compliance) y cero tiempo de inactividad.</p>
-            </div>
-            <div class="group border-l border-white/5 pl-8 hover:border-blue-500 transition-colors">
-                <span class="text-blue-500/20 text-7xl font-black italic block mb-4 group-hover:text-blue-500 transition-colors">04</span>
-                <h6 class="text-white font-black uppercase tracking-widest text-[10px] mb-3">Gestión Evolutiva</h6>
-                <p class="text-slate-500 text-xs leading-relaxed font-light">Soporte Managed Services Elite con monitoreo predictivo y actualización tecnológica constante.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="servicios" class="py-32 px-6 md:px-20 relative">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-            <div class="max-w-2xl">
-                <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-4 leading-none">Servicios de <span class="text-blue-500 italic">Autoridad TI</span></h2>
-                <p class="text-slate-500 font-light text-lg">Soluciones integrales que transforman la infraestructura en un activo rentable.</p>
-            </div>
-            <div class="text-[10px] font-bold text-slate-600 tracking-[0.4em] uppercase border-b border-white/10 pb-2">Especialistas en Integración</div>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="card-blur p-12 rounded-[2.5rem] relative overflow-hidden group">
-                <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity"><i data-lucide="brain-circuit" class="w-24 h-24 text-blue-500"></i></div>
-                <h4 class="text-2xl font-black mb-4 uppercase tracking-tighter">Sistemas de AI</h4>
-                <p class="text-slate-400 text-sm leading-relaxed mb-8 font-light">Despliegue de modelos de lenguaje (LLM) privados y automatización de flujos con inteligencia predictiva.</p>
-                <ul class="text-[10px] font-bold text-blue-400 space-y-2 uppercase tracking-widest">
-                    <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span> Automatización Cognitiva</li>
-                    <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span> Modelos de Data Private</li>
-                </ul>
-            </div>
-            <div class="card-blur p-12 rounded-[2.5rem] border-blue-500/30">
-                <h4 class="text-2xl font-black mb-4 uppercase tracking-tighter">Administración Cloud</h4>
-                <p class="text-slate-400 text-sm leading-relaxed mb-8 font-light">Gestión experta de Oracle Cloud, Odoo ERP y Microsoft 365 para asegurar movilidad y seguridad total de datos.</p>
-                <ul class="text-[10px] font-bold text-blue-400 space-y-2 uppercase tracking-widest">
-                    <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span> Certificación en Odoo/Oracle</li>
-                    <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span> Migración Zero-Risk</li>
-                </ul>
-            </div>
-            <div class="card-blur p-12 rounded-[2.5rem]">
-                <h4 class="text-2xl font-black mb-4 uppercase tracking-tighter">Consultoría IT</h4>
-                <p class="text-slate-400 text-sm leading-relaxed mb-8 font-light">Dirección técnica externa (vCTO), auditorías de seguridad y planes de contingencia ante desastres informáticos.</p>
-                <ul class="text-[10px] font-bold text-blue-400 space-y-2 uppercase tracking-widest">
-                    <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span> Auditoría de Cumplimiento</li>
-                    <li class="flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span> vCTO on-demand</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="sectores" class="py-32 px-6 md:px-20 bg-slate-900/10">
-        <div class="text-center mb-20">
-            <span class="text-blue-500 font-bold tracking-[0.5em] uppercase text-[9px]">Dominio del Mercado</span>
-            <h2 class="text-4xl font-black mt-4 uppercase">Sectores de <span class="text-blue-500">Experticia</span></h2>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="card-blur p-8 text-center rounded-3xl">
-                <i data-lucide="building-2" class="w-8 h-8 text-blue-500 mx-auto mb-4"></i>
-                <h6 class="text-[10px] font-black tracking-widest uppercase">Gobierno & SAT</h6>
-            </div>
-            <div class="card-blur p-8 text-center rounded-3xl">
-                <i data-lucide="landmark" class="w-8 h-8 text-blue-500 mx-auto mb-4"></i>
-                <h6 class="text-[10px] font-black tracking-widest uppercase">Banca & Finanzas</h6>
-            </div>
-            <div class="card-blur p-8 text-center rounded-3xl">
-                <i data-lucide="shopping-cart" class="w-8 h-8 text-blue-500 mx-auto mb-4"></i>
-                <h6 class="text-[10px] font-black tracking-widest uppercase">Retail Inteligente</h6>
-            </div>
-            <div class="card-blur p-8 text-center rounded-3xl">
-                <i data-lucide="factory" class="w-8 h-8 text-blue-500 mx-auto mb-4"></i>
-                <h6 class="text-[10px] font-black tracking-widest uppercase">Industria 4.0</h6>
-            </div>
-        </div>
-    </section>
-
-    <section id="hardware" class="py-32 px-6 md:px-20 bg-slate-950">
+    <!-- ===================== SERVICES ===================== -->
+    <section id="services" class="py-28 px-5 md:px-12 lg:px-20 relative">
         <div class="max-w-3xl mb-16">
-            <h2 class="text-4xl font-black uppercase tracking-tighter">Aprovisionamiento <span class="text-blue-500 italic">Crítico</span></h2>
-            <p class="text-slate-500 font-light">Suministro garantizado de infraestructura con certificación de marca.</p>
+            <span class="eyebrow" data-i18n="svc.eyebrow">What we do</span>
+            <h2 class="text-4xl md:text-5xl font-black tracking-tighter mt-4 mb-4 leading-tight" data-i18n="svc.title">Five services, one accountable partner.</h2>
+            <p class="text-slate-400 text-lg font-light" data-i18n="svc.lead">Hire one service or combine several. Every engagement comes with documented processes, a named account lead and a monthly performance report.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 1 -->
+            <article class="card-blur p-8 rounded-[2rem] flex flex-col">
+                <div class="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center mb-6"><i data-lucide="headphones" class="w-6 h-6 text-blue-400"></i></div>
+                <h3 class="text-xl font-black mb-3" data-i18n="s1.t">Bilingual Technical Support</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-6" data-i18n="s1.d">English/Spanish agents who support your customers on your product, using your tools and your brand voice.</p>
+                <ul class="text-sm text-slate-300 space-y-2 mt-auto">
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="s1.b1">Tier 1 &amp; Tier 2 support by voice, chat and email</span></li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="s1.b2">Knowledge base and macro creation</span></li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="s1.b3">QA scoring and CSAT follow-up</span></li>
+                </ul>
+                <a href="bilingual-support.html" class="mt-6 inline-flex items-center gap-1 text-sm font-bold text-blue-400 hover:underline"><span data-i18n="svc.more">Learn more</span> <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+            </article>
+            <!-- 2 -->
+            <article class="card-blur p-8 rounded-[2rem] flex flex-col">
+                <div class="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center mb-6"><i data-lucide="life-buoy" class="w-6 h-6 text-blue-400"></i></div>
+                <h3 class="text-xl font-black mb-3" data-i18n="s2.t">IT Helpdesk / Service Desk</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-6" data-i18n="s2.d">A single point of contact for your employees' IT issues, run on ITIL-based incident and request management.</p>
+                <ul class="text-sm text-slate-300 space-y-2 mt-auto">
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="s2.b1">L1–L2 support, 8x5 or 24/7 coverage</span></li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="s2.b2">User onboarding/offboarding, access and password resets</span></li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="s2.b3">Works in your ticketing tool (Jira SM, Freshdesk, Zendesk, ServiceNow)</span></li>
+                </ul>
+                <a href="helpdesk.html" class="mt-6 inline-flex items-center gap-1 text-sm font-bold text-blue-400 hover:underline"><span data-i18n="svc.more">Learn more</span> <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+            </article>
+            <!-- 3 -->
+            <article class="card-blur p-8 rounded-[2rem] flex flex-col">
+                <div class="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center mb-6"><i data-lucide="server" class="w-6 h-6 text-blue-400"></i></div>
+                <h3 class="text-xl font-black mb-3" data-i18n="s3.t">Infrastructure Management</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-6" data-i18n="s3.d">Day-to-day administration of the servers, cloud and workplace tools your business runs on.</p>
+                <ul class="text-sm text-slate-300 space-y-2 mt-auto">
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="s3.b1">Microsoft 365, Google Workspace, Azure, AWS</span></li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="s3.b2">Windows/Linux servers, patching and backups</span></li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="s3.b3">Endpoint management and security baselines</span></li>
+                </ul>
+                <a href="infrastructure-management.html" class="mt-6 inline-flex items-center gap-1 text-sm font-bold text-blue-400 hover:underline"><span data-i18n="svc.more">Learn more</span> <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+            </article>
+            <!-- 4 -->
+            <article class="card-blur p-8 rounded-[2rem] flex flex-col">
+                <div class="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center mb-6"><i data-lucide="activity" class="w-6 h-6 text-blue-400"></i></div>
+                <h3 class="text-xl font-black mb-3" data-i18n="s4.t">Network Monitoring (NOC)</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-6" data-i18n="s4.d">We watch your network, servers and services around the clock and act before your users notice a problem.</p>
+                <ul class="text-sm text-slate-300 space-y-2 mt-auto">
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="s4.b1">24/7 alert triage and escalation runbooks</span></li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="s4.b2">Uptime, latency and capacity dashboards</span></li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="s4.b3">Zabbix, PRTG, Datadog or your existing stack</span></li>
+                </ul>
+                <a href="network-monitoring.html" class="mt-6 inline-flex items-center gap-1 text-sm font-bold text-blue-400 hover:underline"><span data-i18n="svc.more">Learn more</span> <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+            </article>
+            <!-- 5 -->
+            <article class="card-blur p-8 rounded-[2rem] flex flex-col">
+                <div class="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center mb-6"><i data-lucide="code-2" class="w-6 h-6 text-blue-400"></i></div>
+                <h3 class="text-xl font-black mb-3" data-i18n="s5.t">Software Development &amp; Maintenance</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-6" data-i18n="s5.d">Dedicated developers and QA to build new features, keep legacy systems running and clear your backlog.</p>
+                <ul class="text-sm text-slate-300 space-y-2 mt-auto">
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="s5.b1">Web apps, APIs and integrations</span></li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="s5.b2">Bug fixing, upgrades and application support</span></li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="s5.b3">Staff augmentation or fixed-scope projects</span></li>
+                </ul>
+                <a href="software-development.html" class="mt-6 inline-flex items-center gap-1 text-sm font-bold text-blue-400 hover:underline"><span data-i18n="svc.more">Learn more</span> <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+            </article>
+            <!-- CTA card -->
+            <article class="rounded-[2rem] p-8 flex flex-col justify-between bg-gradient-to-br from-blue-600 to-blue-800">
+                <div>
+                    <h3 class="text-2xl font-black mb-3" data-i18n="s6.t">Not sure where to start?</h3>
+                    <p class="text-blue-100 text-sm leading-relaxed" data-i18n="s6.d">Tell us what's taking your team's time. In a 30-minute call we'll map what can be outsourced, what it would cost and what the first 30 days would look like.</p>
+                </div>
+                <a href="contact.html" class="mt-8 inline-flex items-center justify-center bg-white text-blue-700 px-6 py-3 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-blue-50 transition" data-i18n="s6.cta">Book a free call</a>
+            </article>
+        </div>
+    </section>
+
+    <!-- ===================== ENGAGEMENT MODELS ===================== -->
+    <section id="models" class="py-28 px-5 md:px-12 lg:px-20 bg-slate-950">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="eyebrow" data-i18n="mod.eyebrow">Engagement models</span>
+            <h2 class="text-4xl md:text-5xl font-black tracking-tighter mt-4 mb-4" data-i18n="mod.title">Pay for the model that fits your operation.</h2>
+            <a href="engagement-models.html" class="inline-flex items-center gap-1 text-sm font-bold text-blue-400 hover:underline mt-4"><span data-i18n="mod.more">Compare models</span> <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="card-blur p-8 rounded-3xl border-white/5 group">
-                <i data-lucide="terminal" class="text-blue-500 mb-6 w-10 h-10 group-hover:scale-110 transition-transform"></i>
-                <h5 class="text-lg font-black mb-3 uppercase tracking-tighter">Workstations de Alto Desempeño</h5>
-                <p class="text-slate-500 text-xs leading-relaxed font-light">Equipos Dell Precision y HP Z-Series configurados para ingeniería y análisis de datos masivos.</p>
+            <div class="card-static rounded-[2rem] p-8">
+                <i data-lucide="users" class="w-8 h-8 text-blue-400 mb-5"></i>
+                <h3 class="text-xl font-black mb-2" data-i18n="m1.t">Dedicated team</h3>
+                <p class="text-xs uppercase tracking-widest text-blue-300 font-bold mb-4" data-i18n="m1.k">Monthly rate per FTE</p>
+                <p class="text-slate-400 text-sm leading-relaxed" data-i18n="m1.d">Full-time agents, engineers or developers who work only on your account, under your processes, managed by us. Best for ongoing support and development.</p>
             </div>
-            <div class="card-blur p-8 rounded-3xl border-white/5 group">
-                <i data-lucide="database" class="text-blue-500 mb-6 w-10 h-10 group-hover:scale-110 transition-transform"></i>
-                <h5 class="text-lg font-black mb-3 uppercase tracking-tighter">Infraestructura de Datos</h5>
-                <p class="text-slate-500 text-xs leading-relaxed font-light">Servidores empresariales y almacenamiento NAS con redundancia total para continuidad operativa.</p>
+            <div class="card-static rounded-[2rem] p-8 border-blue-500/40">
+                <i data-lucide="gauge" class="w-8 h-8 text-blue-400 mb-5"></i>
+                <h3 class="text-xl font-black mb-2" data-i18n="m2.t">Managed service</h3>
+                <p class="text-xs uppercase tracking-widest text-blue-300 font-bold mb-4" data-i18n="m2.k">Per user, device or ticket volume</p>
+                <p class="text-slate-400 text-sm leading-relaxed" data-i18n="m2.d">We own the outcome against agreed SLAs — response times, resolution times, uptime. Best for helpdesk, infrastructure and NOC monitoring.</p>
             </div>
-            <div class="card-blur p-8 rounded-3xl border-white/5 group">
-                <i data-lucide="scan" class="text-blue-500 mb-6 w-10 h-10 group-hover:scale-110 transition-transform"></i>
-                <h5 class="text-lg font-black mb-3 uppercase tracking-tighter">Periféricos Industriales</h5>
-                <p class="text-slate-500 text-xs leading-relaxed font-light">Escáneres de alto volumen y sistemas de colaboración de fidelidad premium.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-16 bg-slate-950 border-y border-white/5">
-        <div class="slider h-[50px] overflow-hidden relative w-full opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
-            <div class="slide-track">
-                <div class="slide italic">ORACLE CLOUD</div><div class="slide italic">ODOO GOLD</div><div class="slide italic">DELL ENTERPRISE</div><div class="slide italic">MICROSOFT 365</div><div class="slide italic">HP PLATINUM</div><div class="slide italic">LENOVO PRO</div><div class="slide italic">CISCO SYSTEMS</div>
-                <div class="slide italic">ORACLE CLOUD</div><div class="slide italic">ODOO GOLD</div><div class="slide italic">DELL ENTERPRISE</div><div class="slide italic">MICROSOFT 365</div><div class="slide italic">HP PLATINUM</div><div class="slide italic">LENOVO PRO</div><div class="slide italic">CISCO SYSTEMS</div>
+            <div class="card-static rounded-[2rem] p-8">
+                <i data-lucide="clipboard-list" class="w-8 h-8 text-blue-400 mb-5"></i>
+                <h3 class="text-xl font-black mb-2" data-i18n="m3.t">Project-based</h3>
+                <p class="text-xs uppercase tracking-widest text-blue-300 font-bold mb-4" data-i18n="m3.k">Fixed scope and milestones</p>
+                <p class="text-slate-400 text-sm leading-relaxed" data-i18n="m3.d">A defined deliverable with a fixed price and timeline: a migration, an integration, a new application or a support-desk setup.</p>
             </div>
         </div>
     </section>
 
-    <a href="TU_LINK_DE_CALENDLY" target="_blank" class="fixed bottom-8 right-8 z-[60] animate-call flex items-center bg-blue-600 hover:bg-blue-500 text-white px-7 py-5 rounded-2xl shadow-2xl transition-all duration-300 group">
-        <div class="flex flex-col items-end mr-4">
-            <span class="text-[10px] font-black uppercase tracking-[0.3em] opacity-80">Book a Strategy Call</span>
-            <span class="text-xs font-bold whitespace-nowrap">Diagnóstico TI Sin Costo</span>
+    <!-- ===================== PROCESS ===================== -->
+    <section id="process" class="py-28 px-5 md:px-12 lg:px-20">
+        <div class="max-w-3xl mb-16">
+            <span class="eyebrow" data-i18n="proc.eyebrow">How we work</span>
+            <h2 class="text-4xl md:text-5xl font-black tracking-tighter mt-4" data-i18n="proc.title">From first call to steady operation.</h2>
+            <a href="how-we-work.html" class="inline-flex items-center gap-1 text-sm font-bold text-blue-400 hover:underline mt-4"><span data-i18n="proc.more">See the full process</span> <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
         </div>
-        <div class="bg-white/20 p-2 rounded-lg group-hover:rotate-12 transition-transform">
-            <i data-lucide="calendar-check-2" class="w-6 h-6"></i>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div class="group border-l border-white/10 pl-6 hover:border-blue-500 transition-colors">
+                <span class="text-blue-500/30 text-6xl font-black italic block mb-3 group-hover:text-blue-500 transition-colors">01</span>
+                <h3 class="text-white font-black uppercase tracking-widest text-sm mb-2" data-i18n="p1.t">Discovery</h3>
+                <p class="text-slate-400 text-sm leading-relaxed" data-i18n="p1.d">We review your volumes, tools and pain points and propose scope, SLAs and pricing.</p>
+            </div>
+            <div class="group border-l border-white/10 pl-6 hover:border-blue-500 transition-colors">
+                <span class="text-blue-500/30 text-6xl font-black italic block mb-3 group-hover:text-blue-500 transition-colors">02</span>
+                <h3 class="text-white font-black uppercase tracking-widest text-sm mb-2" data-i18n="p2.t">30-day pilot</h3>
+                <p class="text-slate-400 text-sm leading-relaxed" data-i18n="p2.d">A small team starts on a defined slice of work so you can judge quality with real data.</p>
+            </div>
+            <div class="group border-l border-white/10 pl-6 hover:border-blue-500 transition-colors">
+                <span class="text-blue-500/30 text-6xl font-black italic block mb-3 group-hover:text-blue-500 transition-colors">03</span>
+                <h3 class="text-white font-black uppercase tracking-widest text-sm mb-2" data-i18n="p3.t">Transition</h3>
+                <p class="text-slate-400 text-sm leading-relaxed" data-i18n="p3.d">Knowledge transfer, runbooks and access setup, then we scale to full scope.</p>
+            </div>
+            <div class="group border-l border-white/10 pl-6 hover:border-blue-500 transition-colors">
+                <span class="text-blue-500/30 text-6xl font-black italic block mb-3 group-hover:text-blue-500 transition-colors">04</span>
+                <h3 class="text-white font-black uppercase tracking-widest text-sm mb-2" data-i18n="p4.t">Operate &amp; improve</h3>
+                <p class="text-slate-400 text-sm leading-relaxed" data-i18n="p4.d">Monthly KPI reports, quarterly business reviews and continuous process improvements.</p>
+            </div>
         </div>
-    </a>
 
-<footer class="pt-24 pb-12 px-6 md:px-20 border-t border-white/5 bg-[#020617] relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-900/5 blur-[120px] rounded-full -z-10"></div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20 relative z-10">
-            <div class="space-y-8">
-                <div>
-                    <div class="text-3xl font-black text-blue-500 tracking-tighter">ZENTEK</div>
-                    <p class="text-slate-500 text-[11px] font-bold tracking-[0.3em] uppercase mt-2">Intelligence & Infrastructure</p>
+        <!-- KPIs reported -->
+        <div class="mt-20 card-static rounded-[2rem] p-8 md:p-10">
+            <h3 class="text-lg font-black mb-6" data-i18n="kpi.title">What you see in every monthly report</h3>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-6 text-sm">
+                <div><p class="text-blue-400 font-black text-base">FRT</p><p class="text-slate-400" data-i18n="kpi.1">First response time</p></div>
+                <div><p class="text-blue-400 font-black text-base">MTTR</p><p class="text-slate-400" data-i18n="kpi.2">Mean time to resolve</p></div>
+                <div><p class="text-blue-400 font-black text-base">FCR</p><p class="text-slate-400" data-i18n="kpi.3">First contact resolution</p></div>
+                <div><p class="text-blue-400 font-black text-base">CSAT</p><p class="text-slate-400" data-i18n="kpi.4">Customer satisfaction</p></div>
+                <div><p class="text-blue-400 font-black text-base">Uptime</p><p class="text-slate-400" data-i18n="kpi.5">Availability of monitored services</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== WHY GUATEMALA ===================== -->
+    <section id="nearshore" class="py-28 px-5 md:px-12 lg:px-20 bg-slate-950">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <div>
+                <span class="eyebrow" data-i18n="ns.eyebrow">Why nearshore · Why Guatemala</span>
+                <h2 class="text-4xl md:text-5xl font-black tracking-tighter mt-4 mb-6" data-i18n="ns.title">Offshore savings without the offshore friction.</h2>
+                <p class="text-slate-400 text-lg font-light leading-relaxed" data-i18n="ns.lead">Guatemala sits on Central Time, a short flight from Miami, Houston and Los Angeles, with a growing bilingual workforce experienced in contact-center and IT work.</p>
+                <a href="why-guatemala.html" class="inline-flex items-center gap-1 text-sm font-bold text-blue-400 hover:underline mt-4"><span data-i18n="ns.more">More about Guatemala</span> <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div class="card-static rounded-2xl p-6">
+                    <i data-lucide="clock-3" class="w-6 h-6 text-blue-400 mb-3"></i>
+                    <h3 class="font-black mb-1" data-i18n="ns1.t">Same working hours</h3>
+                    <p class="text-slate-400 text-sm" data-i18n="ns1.d">Your team is online when you are. Standups, escalations and handoffs happen live.</p>
                 </div>
-                <p class="text-slate-500 text-xs leading-relaxed font-light max-w-xs">
-                    Arquitectos de ecosistemas digitales para el sector corporativo y gubernamental en Guatemala. Elevando la soberanía tecnológica desde 2021.
-                </p>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-slate-600 hover:text-blue-500 transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-                    <a href="#" class="text-slate-600 hover:text-blue-500 transition-colors"><i data-lucide="mail" class="w-5 h-5"></i></a>
+                <div class="card-static rounded-2xl p-6">
+                    <i data-lucide="piggy-bank" class="w-6 h-6 text-blue-400 mb-3"></i>
+                    <h3 class="font-black mb-1" data-i18n="ns2.t">Lower cost</h3>
+                    <p class="text-slate-400 text-sm" data-i18n="ns2.d">Significantly lower cost than hiring onshore, with no recruiting, payroll or equipment overhead on your side.</p>
+                </div>
+                <div class="card-static rounded-2xl p-6">
+                    <i data-lucide="messages-square" class="w-6 h-6 text-blue-400 mb-3"></i>
+                    <h3 class="font-black mb-1" data-i18n="ns3.t">Cultural fit</h3>
+                    <p class="text-slate-400 text-sm" data-i18n="ns3.d">Neutral-accent English and native Spanish for customers across the Americas.</p>
+                </div>
+                <div class="card-static rounded-2xl p-6">
+                    <i data-lucide="plane" class="w-6 h-6 text-blue-400 mb-3"></i>
+                    <h3 class="font-black mb-1" data-i18n="ns4.t">Easy to visit</h3>
+                    <p class="text-slate-400 text-sm" data-i18n="ns4.d">Direct flights from major US hubs make on-site visits and training practical.</p>
                 </div>
             </div>
+        </div>
+    </section>
 
+    <!-- ===================== SECURITY + INDUSTRIES ===================== -->
+    <section class="py-28 px-5 md:px-12 lg:px-20">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="card-static rounded-[2rem] p-8 md:p-10">
+                <i data-lucide="lock" class="w-8 h-8 text-blue-400 mb-5"></i>
+                <h2 class="text-2xl font-black mb-5" data-i18n="sec.title">Security &amp; confidentiality</h2>
+                <ul class="text-sm text-slate-300 space-y-3">
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="sec.1">NDA with the company and every team member</span></li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="sec.2">MFA and least-privilege access to your systems</span></li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="sec.3">Managed workstations and secure remote access</span></li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i><span data-i18n="sec.4">Documented offboarding: access revoked the same day</span></li>
+                </ul>
+            </div>
+            <div class="card-static rounded-[2rem] p-8 md:p-10">
+                <i data-lucide="briefcase" class="w-8 h-8 text-blue-400 mb-5"></i>
+                <h2 class="text-2xl font-black mb-5" data-i18n="ind.title">Who we work with</h2>
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div class="flex items-center gap-3"><i data-lucide="cloud" class="w-5 h-5 text-blue-400"></i><span data-i18n="ind.1">SaaS &amp; tech companies</span></div>
+                    <div class="flex items-center gap-3"><i data-lucide="shopping-cart" class="w-5 h-5 text-blue-400"></i><span data-i18n="ind.2">E-commerce &amp; retail</span></div>
+                    <div class="flex items-center gap-3"><i data-lucide="landmark" class="w-5 h-5 text-blue-400"></i><span data-i18n="ind.3">Fintech &amp; financial services</span></div>
+                    <div class="flex items-center gap-3"><i data-lucide="truck" class="w-5 h-5 text-blue-400"></i><span data-i18n="ind.4">Logistics</span></div>
+                    <div class="flex items-center gap-3"><i data-lucide="building-2" class="w-5 h-5 text-blue-400"></i><span data-i18n="ind.5">Professional services</span></div>
+                    <div class="flex items-center gap-3"><i data-lucide="network" class="w-5 h-5 text-blue-400"></i><span data-i18n="ind.6">MSPs needing overflow capacity</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews: fill in the URLs in the CONFIG block at the bottom -->
+        <div id="reviews" data-config-section="clutch,goodfirms" class="mt-8 card-static rounded-[2rem] p-8 md:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
-                <span class="footer-header">Study Cases</span>
-                <ul class="space-y-5">
-                    <li>
-                        <a href="Zentek_Case_Study_SAT.pdf" download="Zentek_Caso_SAT_2026.pdf" class="footer-link flex flex-col group">
-                            <div class="flex items-center">
-                                <span class="text-slate-200 group-hover:text-blue-400 font-bold text-xs uppercase tracking-tight transition-colors">Optimización SAT 2026</span>
-                                <i data-lucide="download" class="w-3 h-3 ml-2 opacity-0 group-hover:opacity-100 text-blue-400 transition-all"></i>
-                            </div>
-                            <span class="text-[10px] text-slate-500 italic mt-1 font-light">Estrategia de digitalización masiva.</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Zentek_Case_Study_Banca.pdf" download="Zentek_Caso_Banca_IA.pdf" class="footer-link flex flex-col group">
-                            <div class="flex items-center">
-                                <span class="text-slate-200 group-hover:text-blue-400 font-bold text-xs uppercase tracking-tight transition-colors">AI en Banca Central</span>
-                                <i data-lucide="download" class="w-3 h-3 ml-2 opacity-0 group-hover:opacity-100 text-blue-400 transition-all"></i>
-                            </div>
-                            <span class="text-[10px] text-slate-500 italic mt-1 font-light">Modelos predictivos de riesgo financiero.</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Zentek_Case_Study_Retail.pdf" download="Zentek_Caso_Retail_Cloud.pdf" class="footer-link flex flex-col group">
-                            <div class="flex items-center">
-                                <span class="text-slate-200 group-hover:text-blue-400 font-bold text-xs uppercase tracking-tight transition-colors">Retail Efficiency</span>
-                                <i data-lucide="download" class="w-3 h-3 ml-2 opacity-0 group-hover:opacity-100 text-blue-400 transition-all"></i>
-                            </div>
-                            <span class="text-[10px] text-slate-500 italic mt-1 font-light">Infraestructura Cloud para 50+ puntos.</span>
-                        </a>
-                    </li>
+                <h2 class="text-2xl font-black mb-2" data-i18n="rev.title">Read our client reviews</h2>
+                <p class="text-slate-400 text-sm" data-i18n="rev.d">Independent, verified reviews from our clients on the leading B2B review platforms.</p>
+            </div>
+            <div class="flex flex-wrap gap-3">
+                <a data-config="clutch" href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-white/15 hover:border-blue-500 px-5 py-3 rounded-xl font-bold text-sm transition"><i data-lucide="star" class="w-4 h-4 text-amber-400"></i> Clutch</a>
+                <a data-config="goodfirms" href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-white/15 hover:border-blue-500 px-5 py-3 rounded-xl font-bold text-sm transition"><i data-lucide="star" class="w-4 h-4 text-amber-400"></i> GoodFirms</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section id="faq" class="py-28 px-5 md:px-12 lg:px-20 bg-slate-950">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-4xl font-black tracking-tighter mb-10 text-center" data-i18n="faq.title">Frequently asked questions</h2>
+            <div class="space-y-4">
+                <details class="card-static rounded-2xl p-6">
+                    <summary class="flex justify-between items-center font-bold gap-4"><span data-i18n="faq.q1">What is the minimum engagement?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-blue-400 shrink-0"></i></summary>
+                    <p class="text-slate-400 text-sm leading-relaxed mt-4" data-i18n="faq.a1">You can start with a single dedicated person or a 30-day pilot. We scale the team as volume and confidence grow.</p>
+                </details>
+                <details class="card-static rounded-2xl p-6">
+                    <summary class="flex justify-between items-center font-bold gap-4"><span data-i18n="faq.q2">How fast can you start?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-blue-400 shrink-0"></i></summary>
+                    <p class="text-slate-400 text-sm leading-relaxed mt-4" data-i18n="faq.a2">Most pilots begin within 2–4 weeks of signing, depending on team size and the training your product requires.</p>
+                </details>
+                <details class="card-static rounded-2xl p-6">
+                    <summary class="flex justify-between items-center font-bold gap-4"><span data-i18n="faq.q3">Do you use our tools or yours?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-blue-400 shrink-0"></i></summary>
+                    <p class="text-slate-400 text-sm leading-relaxed mt-4" data-i18n="faq.a3">Yours, whenever possible — your ticketing system, chat, monitoring and code repositories. If you don't have them yet, we can recommend and set them up.</p>
+                </details>
+                <details class="card-static rounded-2xl p-6">
+                    <summary class="flex justify-between items-center font-bold gap-4"><span data-i18n="faq.q4">Can you cover nights and weekends?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-blue-400 shrink-0"></i></summary>
+                    <p class="text-slate-400 text-sm leading-relaxed mt-4" data-i18n="faq.a4">Yes. Helpdesk and NOC services are available 8x5, extended hours or 24/7, priced according to the coverage window.</p>
+                </details>
+                <details class="card-static rounded-2xl p-6">
+                    <summary class="flex justify-between items-center font-bold gap-4"><span data-i18n="faq.q5">How do you invoice?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-blue-400 shrink-0"></i></summary>
+                    <p class="text-slate-400 text-sm leading-relaxed mt-4" data-i18n="faq.a5">Monthly, in US dollars, by bank transfer. Project work is invoiced by milestone.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section id="contact" class="py-28 px-5 md:px-12 lg:px-20 hero-gradient">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 max-w-6xl mx-auto">
+            <div class="lg:col-span-2">
+                <span class="eyebrow" data-i18n="ct.eyebrow">Contact</span>
+                <h2 class="text-4xl md:text-5xl font-black tracking-tighter mt-4 mb-6" data-i18n="ct.title">Get a proposal in 48 hours.</h2>
+                <p class="text-slate-300 leading-relaxed mb-8" data-i18n="ct.lead">Tell us what you need to outsource. We'll reply within one business day to schedule a short discovery call.</p>
+                <ul class="space-y-4 text-sm text-slate-300">
+                    <li class="flex items-center gap-3"><i data-lucide="map-pin" class="w-5 h-5 text-blue-400"></i> Guatemala City, Guatemala</li>
+                    <li class="flex items-center gap-3"><i data-lucide="clock" class="w-5 h-5 text-blue-400"></i> <span data-i18n="ct.hours">Mon–Fri, 8:00–18:00 CST</span></li>
+                    <li class="flex items-center gap-3" data-config-wrap><i data-lucide="mail" class="w-5 h-5 text-blue-400"></i> <a data-config="email" data-config-text href="#" class="hover:text-blue-400"></a></li>
                 </ul>
             </div>
 
-            <div>
-                <span class="footer-header">Explorar</span>
-                <ul class="space-y-4">
-                    <li><a href="#servicios-expertos" class="footer-link flex items-center">Consultoría AI & Cloud</a></li>
-                    <li><a href="#hardware" class="footer-link flex items-center">Aprovisionamiento Crítico</a></li>
-                    <li><a href="#metodologia" class="footer-link flex items-center">Nuestra Metodología</a></li>
-                    <li><a href="#" class="footer-link text-blue-400/80 font-bold">Portal de Soporte VIP</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <span class="footer-header">Tech Insights</span>
-                <p class="text-slate-500 text-[10px] mb-6 uppercase tracking-widest font-bold">Reciba reportes de tendencias mensuales.</p>
-                <form class="space-y-3">
-                    <input type="email" placeholder="Email Corporativo" class="newsletter-input w-full px-5 py-4 rounded-xl text-[10px] uppercase font-bold outline-none transition-all">
-                    <button type="submit" class="w-full btn-primary py-4 rounded-xl text-[10px] font-black uppercase tracking-widest">Suscribirse</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="pt-12 border-t border-white/5">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-                <div class="flex flex-wrap justify-center md:justify-start gap-8 text-[9px] font-black text-slate-600 uppercase tracking-[0.3em]">
-                    <a href="#" class="hover:text-slate-300">Privacidad</a>
-                    <a href="#" class="hover:text-slate-300">Compliance</a>
-                    <a href="#" class="hover:text-slate-300">RGAE GT</a>
+            <form action="https://formspree.io/f/mqakpzoz" method="POST" class="js-lead-form lg:col-span-3 card-static rounded-[2rem] p-8 md:p-10 space-y-4">
+                <input type="hidden" name="_subject" value="New lead from Zentek website">
+                <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <input type="text" name="name" required class="field" data-i18n-ph="f.name" placeholder="Full name">
+                    <input type="text" name="company" required class="field" data-i18n-ph="f.company" placeholder="Company">
+                    <input type="email" name="email" required class="field" data-i18n-ph="f.email" placeholder="Work email">
+                    <input type="text" name="country" class="field" data-i18n-ph="f.country" placeholder="Country">
                 </div>
-                <div class="text-[9px] font-black text-slate-800 tracking-[0.4em] uppercase text-center md:text-right">
-                    © 2023 ZENTEK SOLUTIONS GT. ELEVANDO LA SOBERANÍA TECNOLÓGICA.
-                </div>
-            </div>
-        </div>
-    </footer>
 
-    <script>
-        lucide.createIcons();
-        const modal = document.getElementById('modal-overlay');
-        function openModal() {
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-        function closeModal() {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-        window.onclick = function(event) { if (event.target == modal) closeModal(); }
-    </script>
+                <fieldset>
+                    <legend class="text-sm text-slate-300 font-bold mb-3" data-i18n="f.services">Services of interest</legend>
+                    <div class="flex flex-wrap gap-2">
+                        <label class="check-chip relative"><input type="checkbox" name="services[]" value="Bilingual technical support" data-slug="bilingual-support"><span data-i18n="s1.t">Bilingual Technical Support</span></label>
+                        <label class="check-chip relative"><input type="checkbox" name="services[]" value="Helpdesk" data-slug="helpdesk"><span data-i18n="s2.t">IT Helpdesk / Service Desk</span></label>
+                        <label class="check-chip relative"><input type="checkbox" name="services[]" value="Infrastructure management" data-slug="infrastructure-management"><span data-i18n="s3.t">Infrastructure Management</span></label>
+                        <label class="check-chip relative"><input type="checkbox" name="services[]" value="Network monitoring (NOC)" data-slug="network-monitoring"><span data-i18n="s4.t">Network Monitoring (NOC)</span></label>
+                        <label class="check-chip relative"><input type="checkbox" name="services[]" value="Software development & maintenance" data-slug="software-development"><span data-i18n="s5.t">Software Development &amp; Maintenance</span></label>
+                    </div>
+                </fieldset>
+
+                <select name="team_size" class="field" aria-label="Team size">
+                    <option value="" data-i18n="f.size0">Estimated team size</option>
+                    <option value="1-2" data-i18n="f.size1">1–2 people</option>
+                    <option value="3-5" data-i18n="f.size2">3–5 people</option>
+                    <option value="6-15" data-i18n="f.size3">6–15 people</option>
+                    <option value="15+" data-i18n="f.size4">More than 15</option>
+                    <option value="unsure" data-i18n="f.size5">Not sure yet</option>
+                </select>
+
+                <textarea name="message" rows="4" class="field" data-i18n-ph="f.msg" placeholder="What would you like to outsource? Volumes, hours, tools…"></textarea>
+
+                <button type="submit" class="w-full btn-primary py-4 rounded-xl font-black text-sm uppercase tracking-[0.2em]" data-i18n="f.send">Request proposal</button>
+                <p class="text-xs text-slate-500 text-center" data-i18n="f.privacy">We'll only use your details to respond to this request. See our <a href="privacy.html" class="underline hover:text-blue-400">privacy policy</a>.</p>
+            </form>
+        </div>
+    </section>
+
+    <div id="site-footer"></div>
+
+    <script>window.PAGE_ES = {
+"s6.t": "¿No sabe por dónde empezar?",
+"hero.eyebrow": "BPO &amp; Outsourcing de TI Nearshore · Guatemala",
+"hero.title": "Su equipo de soporte y TI, <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400\">en su zona horaria.</span>",
+"hero.lead": "Zentek opera soporte técnico bilingüe, mesa de ayuda, administración de infraestructura, monitoreo de redes y desarrollo de software para empresas de EE. UU. y Latinoamérica — desde Guatemala, con los procesos, reportes y SLAs que esperaría de un equipo interno.",
+"hero.cta1": "Pedir propuesta",
+"hero.cta2": "Ver servicios",
+"hero.chip1.t": "Inglés y español",
+"hero.chip1.d": "Agentes e ingenieros bilingües",
+"hero.chip2.t": "Hora Central (EE. UU.)",
+"hero.chip2.d": "Trabajo en tiempo real, sin turnos nocturnos",
+"hero.chip3.t": "Con SLA",
+"hero.chip3.d": "Reportes mensuales de KPIs",
+"hero.chip4.t": "Piloto de 30 días",
+"hero.chip4.d": "Empiece pequeño y escale si funciona",
+"pillar.bpo.t": "Business Process Outsourcing",
+"pillar.bpo.d": "Operaciones de cara a sus clientes: soporte técnico bilingüe por teléfono, chat y correo, onboarding de clientes y soporte de primer nivel para SaaS y e-commerce.",
+"pillar.ito.t": "Outsourcing de TI",
+"pillar.ito.d": "La base técnica de su negocio: mesa de ayuda interna, administración de servidores y nube, monitoreo de redes 24/7 y desarrolladores dedicados para construir y mantener su software.",
+"tag.voice": "Voz",
+"tag.onboarding": "Onboarding de clientes",
+"tag.dev": "Desarrollo de software",
+"svc.eyebrow": "Qué hacemos",
+"svc.title": "Cinco servicios, un solo socio responsable.",
+"svc.lead": "Contrate un servicio o combine varios. Cada contrato incluye procesos documentados, un responsable de cuenta asignado y un reporte mensual de desempeño.",
+"s1.d": "Agentes en inglés y español que atienden a sus clientes sobre su producto, con sus herramientas y el tono de su marca.",
+"s1.b1": "Soporte Nivel 1 y 2 por voz, chat y correo",
+"s1.b2": "Creación de base de conocimiento y respuestas estándar",
+"s1.b3": "Evaluación de calidad y seguimiento de CSAT",
+"s2.d": "Punto único de contacto para los problemas de TI de sus colaboradores, con gestión de incidentes y solicitudes basada en ITIL.",
+"s2.b1": "Soporte N1–N2, cobertura 8x5 o 24/7",
+"s2.b2": "Altas y bajas de usuarios, accesos y reseteo de contraseñas",
+"s2.b3": "Trabajamos en su herramienta (Jira SM, Freshdesk, Zendesk, ServiceNow)",
+"s3.d": "Administración diaria de los servidores, la nube y las herramientas de trabajo de su empresa.",
+"s3.b1": "Microsoft 365, Google Workspace, Azure, AWS",
+"s3.b2": "Servidores Windows/Linux, parches y respaldos",
+"s3.b3": "Gestión de equipos y líneas base de seguridad",
+"s4.d": "Vigilamos su red, servidores y servicios las 24 horas y actuamos antes de que sus usuarios noten un problema.",
+"s4.b1": "Atención de alertas 24/7 y procedimientos de escalamiento",
+"s4.b2": "Tableros de disponibilidad, latencia y capacidad",
+"s4.b3": "Zabbix, PRTG, Datadog o su plataforma actual",
+"s5.d": "Desarrolladores y QA dedicados para crear funcionalidades, mantener sistemas heredados y reducir su backlog.",
+"s5.b1": "Aplicaciones web, APIs e integraciones",
+"s5.b2": "Corrección de errores, actualizaciones y soporte de aplicaciones",
+"s5.b3": "Aumento de personal o proyectos de alcance cerrado",
+"s6.d": "Cuéntenos qué le quita tiempo a su equipo. En una llamada de 30 minutos definimos qué se puede tercerizar, cuánto costaría y cómo serían los primeros 30 días.",
+"s6.cta": "Agendar llamada gratis",
+"mod.eyebrow": "Modelos de contratación",
+"mod.title": "Pague por el modelo que se ajusta a su operación.",
+"m1.t": "Equipo dedicado",
+"m1.k": "Tarifa mensual por persona",
+"m1.d": "Agentes, ingenieros o desarrolladores a tiempo completo exclusivos para su cuenta, bajo sus procesos y gestionados por nosotros. Ideal para soporte y desarrollo continuo.",
+"m2.t": "Servicio administrado",
+"m2.k": "Por usuario, equipo o volumen de tickets",
+"m2.d": "Respondemos por el resultado según SLAs acordados: tiempos de respuesta, de resolución y disponibilidad. Ideal para helpdesk, infraestructura y NOC.",
+"m3.t": "Por proyecto",
+"m3.k": "Alcance e hitos definidos",
+"m3.d": "Un entregable definido con precio y plazo cerrados: una migración, una integración, una aplicación nueva o la implementación de una mesa de ayuda.",
+"proc.eyebrow": "Cómo trabajamos",
+"proc.title": "De la primera llamada a la operación estable.",
+"p1.t": "Diagnóstico",
+"p1.d": "Revisamos sus volúmenes, herramientas y problemas, y proponemos alcance, SLAs y precio.",
+"p2.t": "Piloto de 30 días",
+"p2.d": "Un equipo pequeño arranca con una parte definida del trabajo para que evalúe la calidad con datos reales.",
+"p3.t": "Transición",
+"p3.d": "Transferencia de conocimiento, procedimientos y accesos; luego escalamos al alcance completo.",
+"p4.t": "Operación y mejora",
+"p4.d": "Reportes mensuales de KPIs, revisiones trimestrales y mejora continua de procesos.",
+"kpi.title": "Lo que verá en cada reporte mensual",
+"kpi.1": "Tiempo de primera respuesta",
+"kpi.2": "Tiempo medio de resolución",
+"kpi.3": "Resolución en el primer contacto",
+"kpi.4": "Satisfacción del cliente",
+"kpi.5": "Disponibilidad de servicios monitoreados",
+"ns.eyebrow": "Por qué nearshore · Por qué Guatemala",
+"ns.title": "El ahorro del offshore, sin sus fricciones.",
+"ns.lead": "Guatemala está en Hora Central, a un vuelo corto de Miami, Houston y Los Ángeles, con una fuerza laboral bilingüe creciente y con experiencia en contact center y TI.",
+"ns1.t": "Mismo horario laboral",
+"ns1.d": "Su equipo está en línea cuando usted lo está. Reuniones, escalamientos y traspasos en vivo.",
+"ns2.t": "Menor costo",
+"ns2.d": "Costo significativamente menor que contratar localmente en EE. UU., sin gastos de reclutamiento, planilla ni equipo de su lado.",
+"ns3.t": "Afinidad cultural",
+"ns3.d": "Inglés con acento neutro y español nativo para clientes en todo el continente.",
+"ns4.t": "Fácil de visitar",
+"ns4.d": "Vuelos directos desde las principales ciudades de EE. UU. facilitan visitas y capacitaciones presenciales.",
+"sec.title": "Seguridad y confidencialidad",
+"sec.1": "NDA con la empresa y con cada miembro del equipo",
+"sec.2": "MFA y acceso de mínimo privilegio a sus sistemas",
+"sec.3": "Estaciones de trabajo administradas y acceso remoto seguro",
+"sec.4": "Salida documentada: accesos revocados el mismo día",
+"ind.title": "Con quién trabajamos",
+"ind.1": "Empresas SaaS y tecnológicas",
+"ind.2": "E-commerce y retail",
+"ind.3": "Fintech y servicios financieros",
+"ind.4": "Logística",
+"ind.5": "Servicios profesionales",
+"ind.6": "MSPs que necesitan capacidad adicional",
+"rev.title": "Lea las reseñas de nuestros clientes",
+"rev.d": "Reseñas independientes y verificadas en las principales plataformas B2B.",
+"faq.title": "Preguntas frecuentes",
+"faq.q1": "¿Cuál es el contrato mínimo?",
+"faq.a1": "Puede empezar con una sola persona dedicada o con un piloto de 30 días. Ampliamos el equipo conforme crecen el volumen y la confianza.",
+"faq.q2": "¿Qué tan rápido pueden empezar?",
+"faq.a2": "La mayoría de pilotos arrancan entre 2 y 4 semanas después de firmar, según el tamaño del equipo y la capacitación que requiera su producto.",
+"faq.q3": "¿Usan nuestras herramientas o las suyas?",
+"faq.a3": "Las suyas siempre que sea posible: su sistema de tickets, chat, monitoreo y repositorios. Si aún no las tiene, podemos recomendarlas e implementarlas.",
+"faq.q4": "¿Pueden cubrir noches y fines de semana?",
+"faq.a4": "Sí. Helpdesk y NOC están disponibles en 8x5, horario extendido o 24/7, con precio según la ventana de cobertura.",
+"faq.q5": "¿Cómo facturan?",
+"faq.a5": "Mensualmente, en dólares, por transferencia bancaria. Los proyectos se facturan por hitos.",
+"ct.eyebrow": "Contacto",
+"ct.title": "Reciba una propuesta en 48 horas.",
+"ct.lead": "Cuéntenos qué necesita tercerizar. Le responderemos en un día hábil para agendar una breve llamada de diagnóstico.",
+"ct.hours": "Lun–Vie, 8:00–18:00 (hora de Guatemala)",
+"svc.more": "Ver detalles",
+"mod.more": "Comparar modelos",
+"proc.more": "Ver el proceso completo",
+"ns.more": "Más sobre Guatemala"
+};</script>
+    <script src="assets/site.js"></script>
 </body>
 </html>

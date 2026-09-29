@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://quito453.github.io/Zentek/sitemap.xml
